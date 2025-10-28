@@ -1,0 +1,604 @@
+{
+    "Controller & Processing Units": [
+        {
+            "name": "Arduino Uno",
+            "desc": "Arduino Uno adalah papan mikrokontroler open-source berbasis ATmega328P yang menjadi standar utama dalam dunia prototyping elektronik dan IoT. Dilengkapi dengan 14 pin digital I/O (6 di antaranya mendukung PWM), 6 input analog, osilator 16 MHz, port USB tipe B, serta tombol reset, board ini mampu menjalankan berbagai proyek elektronik dari tingkat dasar hingga lanjutan. Arduino Uno dapat diprogram melalui Arduino IDE menggunakan bahasa C/C++ yang telah disederhanakan. Platform ini juga memiliki kompatibilitas tinggi terhadap berbagai sensor, aktuator, dan shield tambahan. Karena kemudahan penggunaannya, dokumentasi luas, serta komunitas global yang aktif, Arduino Uno sering digunakan dalam bidang edukasi, riset, robotika, hingga prototipe industri.",
+            "price": 150000,
+            "image": "assets/images/arduino_uno.png"
+        },
+        {
+            "name": "ESP32",
+            "desc": "ESP32 adalah mikrokontroler berperforma tinggi buatan Espressif Systems yang dilengkapi dengan konektivitas Wi-Fi dan Bluetooth bawaan, menjadikannya sangat ideal untuk proyek Internet of Things (IoT). Ditenagai prosesor dual-core Xtensa LX6 hingga 240 MHz, ESP32 menawarkan performa komputasi tinggi dengan konsumsi daya rendah. Chip ini memiliki fitur ADC, DAC, PWM, SPI, I2C, UART, dan sensor suhu internal. Dengan dukungan terhadap platform seperti Arduino IDE, MicroPython, dan ESP-IDF, ESP32 memungkinkan pengembang untuk membuat proyek kompleks seperti sistem rumah pintar, pengendalian perangkat via internet, atau monitoring lingkungan berbasis cloud. Keunggulannya ada pada kecepatan, fleksibilitas, dan efisiensi energi.",
+            "price": 120000,
+            "image": "assets/images/esp32.png"
+        },
+        {
+            "name": "Raspberry Pi 4",
+            "desc": "Raspberry Pi 4 Model B adalah komputer mini berdaya tinggi yang mengusung prosesor Broadcom BCM2711 quad-core Cortex-A72 1.5GHz. Board ini memiliki RAM hingga 8GB, dua port micro-HDMI untuk output ganda 4K, USB 3.0, Ethernet Gigabit, serta Wi-Fi dual-band 2.4/5GHz. Raspberry Pi 4 dapat menjalankan sistem operasi seperti Raspberry Pi OS, Ubuntu, atau bahkan Windows IoT Core. Dengan GPIO 40-pin, board ini mendukung koneksi sensor dan modul eksternal. Raspberry Pi 4 digunakan secara luas untuk aplikasi seperti AI, server ringan, otomasi rumah, media center, dan pembelajaran pemrograman. Kombinasi performa tinggi dan konsumsi daya rendah menjadikannya pilihan populer untuk pelajar, maker, dan profesional.",
+            "price": 950000,
+            "image": "assets/images/raspberry_pi.png"
+        },
+        {
+            "name": "Arduino Mega 2560",
+            "desc": "Arduino Mega 2560 adalah papan mikrokontroler berbasis ATmega2560 yang dirancang untuk proyek berskala besar dengan kebutuhan pin dan memori tinggi. Board ini memiliki 54 pin digital I/O (15 mendukung PWM), 16 input analog, serta 4 port UART hardware untuk komunikasi serial. Dengan memori flash 256KB, SRAM 8KB, dan EEPROM 4KB, Mega 2560 mampu menangani sistem kompleks seperti robot multi-sensor, printer 3D, dan sistem otomasi industri. Kompatibel dengan Arduino IDE, board ini juga mendukung hampir semua shield Arduino Uno. Kelebihannya terletak pada kestabilan, fleksibilitas, dan daya dukung terhadap proyek skala menengah hingga besar.",
+            "price": 190000,
+            "image": "assets/images/arduino_mega.png"
+        },
+        {
+            "name": "ESP8266 NodeMCU",
+            "desc": "ESP8266 NodeMCU adalah papan mikrokontroler Wi-Fi hemat daya yang populer untuk proyek Internet of Things (IoT). Board ini dilengkapi prosesor 32-bit Tensilica L106 dengan kecepatan hingga 160 MHz, memori flash 4MB, dan dukungan protokol komunikasi seperti SPI, I2C, UART, dan PWM. NodeMCU dapat diprogram menggunakan Arduino IDE, Lua, atau MicroPython, serta mendukung platform cloud seperti Blynk, Thingspeak, dan MQTT. Kelebihan utamanya adalah integrasi Wi-Fi bawaan, harga terjangkau, dan kemudahan pemrograman. ESP8266 NodeMCU cocok digunakan untuk sistem monitoring jarak jauh, pengendali lampu pintar, hingga dashboard IoT berbasis web.",
+            "price": 80000,
+            "image": "assets/images/nodemcu.png"
+        },
+        {
+            "name": "STM32 Blue Pill",
+            "desc": "STM32 Blue Pill adalah papan mikrokontroler berperforma tinggi berbasis ARM Cortex-M3 STM32F103C8T6. Board ini beroperasi pada kecepatan hingga 72 MHz dengan memori flash 64KB dan SRAM 20KB. Dilengkapi berbagai antarmuka seperti SPI, I2C, USART, ADC, dan PWM, Blue Pill cocok untuk aplikasi embedded system yang menuntut kecepatan dan efisiensi daya. Papan ini bisa diprogram menggunakan STM32CubeIDE, Arduino IDE, atau PlatformIO, serta didukung ekosistem STMicroelectronics. Blue Pill sering dipilih dalam bidang industri, robotika, dan kontrol mesin karena kestabilannya yang tinggi dan biaya yang relatif murah dibandingkan performanya.",
+            "price": 75000,
+            "image": "assets/images/stm32.png"
+        },
+        {
+            "name": "Arduino Nano",
+            "desc": "Arduino Nano adalah versi mini dari Arduino Uno yang tetap menggunakan mikrokontroler ATmega328P dengan fitur serupa namun dalam ukuran yang jauh lebih kecil. Board ini memiliki 22 pin I/O, termasuk 6 pin analog, dan menggunakan konektor USB Mini-B. Karena ukurannya yang ringkas, Arduino Nano sangat cocok untuk proyek embedded, wearable device, dan sistem sensor miniatur. Dapat diprogram dengan Arduino IDE, board ini kompatibel dengan hampir semua library dan shield Arduino. Nano sering digunakan dalam proyek pendidikan, sensor portabel, serta eksperimen elektronika di ruang terbatas.",
+            "price": 90000,
+            "image": "assets/images/arduino_nano.png"
+        },
+        {
+            "name": "Raspberry Pi Pico",
+            "desc": "Raspberry Pi Pico adalah mikrokontroler ringkas berbasis chip RP2040 buatan Raspberry Pi Foundation. Mengusung prosesor dual-core ARM Cortex-M0+ berkecepatan hingga 133 MHz, board ini memiliki RAM 264KB dan flash 2MB. Pico mendukung berbagai antarmuka seperti SPI, I2C, UART, PWM, dan ADC. Board ini dapat diprogram menggunakan C/C++ atau MicroPython, menjadikannya fleksibel untuk eksperimen edukasi maupun aplikasi industri ringan. Keunggulan utama Pico adalah efisiensi daya tinggi, performa stabil, serta harga yang sangat ekonomis. Sangat cocok untuk proyek sensor, robot mini, dan sistem kendali IoT berdaya rendah.",
+            "price": 85000,
+            "image": "assets/images/pi_pico.png"
+        },
+        {
+            "name": "BeagleBone Black",
+            "desc": "BeagleBone Black adalah board pengembangan open-source berbasis prosesor ARM Cortex-A8 yang menjalankan sistem operasi Linux. Board ini sangat populer untuk pengembangan sistem tertanam (embedded systems) dan proyek industri karena memiliki GPIO yang luas, port HDMI, Ethernet, dan dukungan untuk berbagai distribusi Linux seperti Debian dan Ubuntu. Dengan kecepatan prosesor 1GHz dan RAM 512MB, BeagleBone Black mampu menjalankan server kecil, aplikasi IoT, hingga sistem kontrol industri secara efisien. Selain itu, ia dilengkapi dengan eMMC 4GB internal dan mendukung boot dari microSD card, menjadikannya fleksibel untuk eksperimen dan produksi.",
+            "price": 650000,
+            "image": "assets/images/beaglebone.png"
+        },
+        {
+            "name": "Teensy 4.0",
+            "desc": "Teensy 4.0 adalah board mikrokontroler berperforma tinggi yang menggunakan prosesor ARM Cortex-M7 dengan kecepatan hingga 600 MHz. Board ini mendukung pemrograman melalui Arduino IDE dan PlatformIO, menjadikannya mudah digunakan sekaligus sangat powerful untuk proyek yang memerlukan kecepatan tinggi seperti audio processing, robotika, dan instrumentasi. Teensy 4.0 memiliki 40 pin input/output digital, 14 pin analog, serta dukungan komunikasi USB host dan perangkat HID. Ukurannya yang kecil menjadikannya ideal untuk proyek tertanam berdaya tinggi namun hemat ruang.",
+            "price": 220000,
+            "image": "assets/images/teensy.png"
+        },
+        {
+            "name": "Arduino Leonardo",
+            "desc": "Arduino Leonardo adalah papan mikrokontroler berbasis ATmega32u4 yang memiliki kemampuan unik untuk berfungsi sebagai perangkat USB seperti keyboard atau mouse. Hal ini memungkinkan pengembang untuk membuat proyek interaktif yang dapat berkomunikasi langsung dengan komputer tanpa perangkat tambahan. Leonardo memiliki 20 pin I/O digital (7 di antaranya dapat digunakan sebagai output PWM), 12 input analog, serta port micro-USB untuk pemrograman dan komunikasi. Board ini ideal untuk proyek antarmuka manusia (HMI), simulasi keyboard, kontroler game, dan otomatisasi desktop.",
+            "price": 160000,
+            "image": "assets/images/arduino_leonardo.png"
+        },
+        {
+            "name": "Raspberry Pi Zero W",
+            "desc": "Raspberry Pi Zero W adalah versi mini dari Raspberry Pi dengan kemampuan nirkabel yang lengkap. Ditenagai oleh prosesor ARM11 1GHz dan RAM 512MB, board ini dilengkapi dengan Wi-Fi dan Bluetooth terintegrasi, menjadikannya ideal untuk proyek IoT portabel, kamera pintar, atau sistem pemantauan kecil. Dengan ukuran hanya sebesar kartu nama, Raspberry Pi Zero W tetap mendukung koneksi HDMI mini, port micro-USB, serta slot GPIO 40-pin. Konsumsi daya yang rendah dan harga yang ekonomis membuatnya populer di kalangan pengembang dan hobiis.",
+            "price": 500000,
+            "image": "assets/images/pi_zero.png"
+        },
+        {
+            "name": "Intel Galileo",
+            "desc": "Intel Galileo adalah papan pengembangan berbasis prosesor Intel Quark SoC X1000 32-bit yang dirancang untuk kompatibilitas penuh dengan ekosistem Arduino. Board ini menjalankan sistem operasi berbasis Linux dan memiliki slot microSD, port Ethernet, USB Host, serta PCI Express mini slot untuk ekspansi. Galileo memungkinkan integrasi antara dunia mikrokontroler dan komputasi tinggi, cocok untuk penelitian, pendidikan, dan prototyping sistem IoT yang membutuhkan stabilitas tinggi dan daya komputasi lebih besar dibanding board Arduino biasa.",
+            "price": 1200000,
+            "image": "assets/images/intel_galileo.png"
+        },
+        {
+            "name": "ESP32-S2",
+            "desc": "ESP32-S2 merupakan varian dari keluarga ESP32 yang hemat daya dan dilengkapi dengan dukungan USB OTG (On-The-Go). Board ini berbasis prosesor single-core Xtensa LX7 240MHz dan memiliki fitur Wi-Fi 2.4GHz serta keamanan tingkat lanjut seperti hardware encryption dan secure boot. ESP32-S2 cocok untuk proyek IoT, perangkat wearable, dan aplikasi yang membutuhkan efisiensi energi tinggi dengan konektivitas nirkabel stabil. Board ini juga mendukung pemrograman dengan Arduino IDE, MicroPython, maupun ESP-IDF.",
+            "price": 150000,
+            "image": "assets/images/esp32s2.png"
+        },
+        {
+            "name": "Particle Photon",
+            "desc": "Particle Photon adalah board Wi-Fi berukuran kecil yang dilengkapi dengan prosesor ARM Cortex-M3 dan terhubung langsung dengan platform cloud IoT milik Particle. Dengan fitur cloud integration, pengembang dapat memantau, memperbarui, dan mengontrol perangkat dari jarak jauh dengan mudah. Photon mendukung bahasa pemrograman berbasis C/C++ melalui Particle Workbench, dan memiliki 18 pin I/O digital serta 8 pin analog. Board ini sangat cocok untuk proyek IoT komersial dan prototipe cepat yang membutuhkan konektivitas cloud real-time.",
+            "price": 230000,
+            "image": "assets/images/photon.png"
+        },
+        {
+            "name": "Arduino Due",
+            "desc": "Arduino Due adalah papan mikrokontroler pertama dari Arduino yang menggunakan prosesor ARM Cortex-M3 32-bit (Atmel SAM3X8E). Dengan kecepatan clock 84 MHz dan 96KB SRAM, Arduino Due menawarkan performa jauh lebih tinggi dibanding Arduino Uno atau Mega. Board ini memiliki 54 pin I/O digital, 12 input analog, serta port komunikasi USB host. Arduino Due ideal untuk aplikasi yang membutuhkan pemrosesan data cepat seperti sistem kontrol, robotika kompleks, dan proyek audio digital.",
+            "price": 210000,
+            "image": "assets/images/arduino_due.png"
+        },
+        {
+            "name": "BBC micro:bit",
+            "desc": "BBC micro:bit adalah board edukatif mini yang dirancang untuk mempermudah pembelajaran pemrograman dan IoT di kalangan pelajar. Dilengkapi dengan prosesor ARM Cortex-M0, LED matrix 5x5, sensor kompas, accelerometer, serta Bluetooth, micro:bit memungkinkan pengguna membuat proyek interaktif tanpa perangkat tambahan. Board ini dapat diprogram menggunakan MakeCode, Python, maupun C++, menjadikannya alat pembelajaran populer untuk eksperimen digital, kontrol robot sederhana, hingga komunikasi antar-perangkat.",
+            "price": 170000,
+            "image": "assets/images/microbit.png"
+        },
+        {
+            "name": "Raspberry Pi 5",
+            "desc": "Raspberry Pi 5 adalah generasi terbaru dari lini komputer mini Raspberry Pi, dengan peningkatan signifikan dalam performa dan efisiensi daya. Ditenagai oleh prosesor quad-core ARM Cortex-A76 2.4GHz dan GPU VideoCore VII, Pi 5 mampu menangani komputasi berat seperti AI ringan, multimedia, dan server lokal. Board ini memiliki dua port micro-HDMI, dua port USB 3.0, PCIe 2.0, dan dukungan kamera ganda. Raspberry Pi 5 sangat cocok untuk proyek industri, pendidikan, hingga eksperimen sistem operasi Linux penuh.",
+            "price": 1200000,
+            "image": "assets/images/raspberry_pi5.png"
+        },
+        {
+            "name": "ESP32-C3",
+            "desc": "ESP32-C3 merupakan modul mikrokontroler dari Espressif yang menggunakan arsitektur RISC-V single-core 160MHz dengan dukungan Wi-Fi 2.4GHz dan Bluetooth Low Energy (BLE) 5.0. Board ini menawarkan keamanan tinggi dengan hardware cryptographic accelerator dan fitur low power mode, menjadikannya ideal untuk proyek IoT skala besar seperti smart home dan sensor nirkabel. ESP32-C3 juga mendukung Arduino IDE, ESP-IDF, dan MicroPython, sehingga mudah digunakan di berbagai platform.",
+            "price": 135000,
+            "image": "assets/images/esp32c3.png"
+        },
+        {
+            "name": "Adafruit Feather M4",
+            "desc": "Adafruit Feather M4 adalah papan pengembangan ringan dan portabel berbasis mikrokontroler ATSAMD51 Cortex-M4 dengan kecepatan hingga 120 MHz. Board ini memiliki kompatibilitas tinggi dengan ekosistem Feather dan mendukung pemrograman menggunakan Arduino IDE serta CircuitPython. Dengan 512KB Flash dan 192KB RAM, Feather M4 cocok untuk proyek portable seperti sensor IoT, perangkat wearable, serta aplikasi berbasis data real-time. Fitur konektivitas yang lengkap dan efisiensi daya menjadikannya salah satu board favorit untuk pengembangan modern.",
+            "price": 240000,
+            "image": "assets/images/feather_m4.png"
+        },
+        {
+            "name": "Raspberry Pi Compute Module 4",
+            "desc": "Raspberry Pi Compute Module 4 (CM4) dirancang khusus untuk integrasi industri dan aplikasi komersial. Mengusung prosesor Broadcom BCM2711 quad-core 1.5GHz, CM4 menawarkan fleksibilitas tinggi dengan berbagai konfigurasi RAM dan penyimpanan eMMC. Board ini tidak berbentuk seperti Raspberry Pi biasa, melainkan modul kecil yang dipasang di carrier board. CM4 sangat cocok untuk sistem tertanam industri, otomasi, kamera AI, dan perangkat edge computing berbasis Linux.",
+            "price": 950000,
+            "image": "assets/images/cm4.png"
+        },
+        {
+            "name": "Arduino Pro Mini",
+            "desc": "Arduino Pro Mini adalah versi ringkas dari Arduino Uno yang menggunakan mikrokontroler ATmega328. Board ini dirancang untuk aplikasi embedded yang memerlukan ukuran kecil dan konsumsi daya rendah. Dengan ukuran hanya 18x33mm, Pro Mini tetap memiliki 14 pin digital dan 8 pin analog. Karena tidak memiliki port USB bawaan, pemrograman dilakukan menggunakan adaptor FTDI. Board ini sangat cocok untuk proyek wearable, sensor kecil, dan perangkat otomatisasi tertanam.",
+            "price": 75000,
+            "image": "assets/images/arduino_promini.png"
+        },
+        {
+            "name": "ESP32-CAM",
+            "desc": "ESP32-CAM adalah modul mikrokontroler ESP32 yang dilengkapi dengan kamera OV2640 bawaan, cocok untuk aplikasi pengenalan wajah, pemantauan jarak jauh, dan sistem keamanan IoT. Board ini memiliki slot microSD untuk penyimpanan, Wi-Fi bawaan, serta GPIO tambahan untuk sensor eksternal. Dengan dukungan untuk ESP-IDF dan Arduino IDE, ESP32-CAM memungkinkan pengguna membuat sistem streaming video nirkabel atau sistem deteksi objek dengan harga yang sangat terjangkau.",
+            "price": 160000,
+            "image": "assets/images/esp32cam.png"
+        },
+        {
+            "name": "Jetson Nano",
+            "desc": "NVIDIA Jetson Nano adalah komputer mini yang dirancang khusus untuk pengembangan kecerdasan buatan (AI), computer vision, dan deep learning. Dilengkapi dengan GPU NVIDIA Maxwell 128-core dan CPU quad-core ARM A57, board ini mampu menjalankan model pembelajaran mesin secara real-time. Jetson Nano mendukung berbagai framework seperti TensorFlow, PyTorch, dan OpenCV, menjadikannya platform ideal untuk proyek robotika, pemantauan video pintar, dan kendaraan otonom.",
+            "price": 1600000,
+            "image": "assets/images/jetson_nano.png"
+        },
+        {
+            "name": "Arduino Yun",
+            "desc": "Arduino Yun menggabungkan kekuatan Linux (dari prosesor Atheros AR9331) dan kemudahan mikrokontroler ATmega32u4 dalam satu papan. Board ini memungkinkan koneksi langsung ke internet melalui Wi-Fi dan Ethernet, serta menjalankan skrip berbasis Python, Node.js, atau shell langsung di sistem operasi OpenWRT. Arduino Yun sangat cocok untuk proyek IoT terdistribusi yang memerlukan integrasi antara mikrokontroler dan sistem operasi, seperti otomatisasi rumah, logging data cloud, dan server mini berbasis web.",
+            "price": 340000,
+            "image": "assets/images/arduino_yun.png"
+        }
+    ],
+    "Input & Sensing Devices": [
+        {
+            "name": "DHT11",
+            "desc": "DHT11 adalah sensor suhu dan kelembapan digital yang sederhana dan ekonomis. Sensor ini memiliki kemampuan untuk mengukur suhu dari 0°C hingga 50°C dengan akurasi ±2°C, serta kelembapan dari 20% hingga 90% RH. DHT11 menggunakan protokol komunikasi satu kabel (single-wire digital interface) sehingga mudah diintegrasikan dengan mikrokontroler seperti Arduino dan ESP32. Sensor ini cocok untuk proyek pemantauan lingkungan seperti stasiun cuaca mini, sistem rumah pintar, dan kontrol suhu ruangan.",
+            "price": 25000,
+            "image": "assets/images/dht11.png"
+        },
+        {
+            "name": "DHT22",
+            "desc": "DHT22 (AM2302) adalah versi lanjutan dari DHT11 dengan akurasi dan rentang pengukuran yang lebih baik. Sensor ini mampu mengukur suhu antara -40°C hingga 80°C dan kelembapan hingga 100% RH dengan resolusi 0.1%. DHT22 menggunakan komunikasi digital tunggal yang stabil dan tahan terhadap gangguan. Sangat ideal untuk aplikasi profesional seperti sistem HVAC, laboratorium, dan pertanian cerdas yang membutuhkan data lingkungan yang presisi.",
+            "price": 45000,
+            "image": "assets/images/dht22.png"
+        },
+        {
+            "name": "Ultrasonic HC-SR04",
+            "desc": "HC-SR04 adalah sensor jarak berbasis gelombang ultrasonik yang dapat mengukur jarak dari 2 cm hingga 400 cm dengan akurasi sekitar 3 mm. Sensor ini bekerja dengan memancarkan gelombang ultrasonik dan menghitung waktu pantulannya untuk menentukan jarak. Sangat populer digunakan dalam proyek robotik, sistem parkir otomatis, serta perangkat IoT yang memerlukan deteksi jarak tanpa kontak fisik.",
+            "price": 30000,
+            "image": "assets/images/hcsr04.png"
+        },
+        {
+            "name": "PIR Sensor",
+            "desc": "PIR (Passive Infrared Sensor) adalah sensor yang mendeteksi pergerakan manusia berdasarkan perubahan radiasi inframerah. Sensor ini bekerja tanpa kontak fisik, dengan jangkauan deteksi 3–7 meter dan sudut pandang hingga 120°. PIR sensor sering digunakan untuk sistem keamanan, lampu otomatis, dan perangkat hemat energi yang hanya aktif saat ada pergerakan manusia di sekitar.",
+            "price": 28000,
+            "image": "assets/images/pir_sensor.png"
+        },
+        {
+            "name": "LDR Sensor",
+            "desc": "Light Dependent Resistor (LDR) adalah sensor cahaya yang mengubah resistansinya berdasarkan intensitas cahaya yang diterima. Saat cahaya terang, resistansi turun, dan sebaliknya naik saat gelap. Sensor ini banyak digunakan untuk sistem otomatisasi seperti lampu jalan otomatis, pengatur brightness layar, dan proyek IoT berbasis pencahayaan.",
+            "price": 10000,
+            "image": "assets/images/ldr_sensor.png"
+        },
+        {
+            "name": "IR Obstacle Sensor",
+            "desc": "Sensor penghalang inframerah (IR Obstacle Sensor) bekerja dengan memancarkan sinyal inframerah dan mendeteksi pantulannya. Jika sinyal terhalang oleh objek, sensor mengirimkan sinyal logika ke mikrokontroler. Komponen ini sering digunakan dalam robot line follower, sistem keamanan, dan deteksi objek otomatis.",
+            "price": 15000,
+            "image": "assets/images/ir_sensor.png"
+        },
+        {
+            "name": "MQ-2 Gas Sensor",
+            "desc": "Sensor gas MQ-2 dirancang untuk mendeteksi berbagai gas mudah terbakar seperti LPG, metana, karbon monoksida, dan asap. Sensor ini menggunakan elemen SnO₂ (timah dioksida) yang berubah resistansinya saat terkena gas. MQ-2 sering digunakan dalam proyek detektor kebocoran gas, sistem keamanan rumah, dan perangkat pemantau kualitas udara.",
+            "price": 35000,
+            "image": "assets/images/mq2.png"
+        },
+        {
+            "name": "Soil Moisture Sensor",
+            "desc": "Soil Moisture Sensor berfungsi untuk mengukur kadar air dalam tanah menggunakan prinsip konduktivitas listrik. Semakin tinggi kadar air, semakin rendah resistansinya. Sensor ini sangat berguna dalam sistem irigasi otomatis, pertanian pintar, dan hidroponik untuk memantau kelembapan tanah secara real-time.",
+            "price": 20000,
+            "image": "assets/images/soil_moisture.png"
+        },
+        {
+            "name": "Rain Sensor",
+            "desc": "Rain Sensor mendeteksi keberadaan air atau hujan menggunakan papan deteksi berbasis konduktivitas. Sensor ini mengirimkan sinyal analog maupun digital sesuai dengan tingkat kelembapan pada permukaannya. Cocok digunakan pada sistem atap otomatis, stasiun cuaca, dan sistem peringatan hujan.",
+            "price": 18000,
+            "image": "assets/images/rain_sensor.png"
+        },
+        {
+            "name": "Flame Sensor",
+            "desc": "Flame Sensor menggunakan fotodioda atau fototransistor untuk mendeteksi cahaya inframerah yang dihasilkan oleh api. Sensor ini dapat mendeteksi nyala api hingga jarak 80 cm tergantung intensitasnya. Umumnya digunakan pada sistem pemadam kebakaran otomatis, robot pemadam, atau deteksi kebakaran di industri.",
+            "price": 22000,
+            "image": "assets/images/flame_sensor.png"
+        },
+        {
+            "name": "Sound Sensor",
+            "desc": "Sound Sensor menggunakan mikrofon elektret untuk mendeteksi intensitas suara di sekitar. Sensor ini menghasilkan sinyal analog proporsional dengan volume suara dan sinyal digital ketika ambang tertentu terlampaui. Banyak digunakan untuk proyek interaktif seperti kontrol lampu dengan tepukan, sistem monitoring kebisingan, atau robot pengikut suara.",
+            "price": 25000,
+            "image": "assets/images/sound_sensor.png"
+        },
+        {
+            "name": "Tilt Sensor",
+            "desc": "Tilt Sensor atau sensor kemiringan mendeteksi perubahan posisi atau orientasi dengan memanfaatkan bola logam di dalam tabung konduktif. Ketika sensor dimiringkan, bola logam bergerak dan mengubah keadaan sirkuit listrik. Cocok untuk sistem alarm, robot keseimbangan, dan detektor getaran sederhana.",
+            "price": 18000,
+            "image": "assets/images/tilt_sensor.png"
+        },
+        {
+            "name": "Temperature DS18B20",
+            "desc": "DS18B20 adalah sensor suhu digital dengan akurasi tinggi dan bentuk tahan air. Sensor ini menggunakan protokol komunikasi 1-Wire, memungkinkan banyak sensor dihubungkan dalam satu pin mikrokontroler. Mampu bekerja pada suhu -55°C hingga 125°C, DS18B20 banyak digunakan pada sistem pemantauan suhu air, akuarium, dan laboratorium.",
+            "price": 45000,
+            "image": "assets/images/ds18b20.png"
+        },
+        {
+            "name": "Photo Interrupter",
+            "desc": "Photo Interrupter bekerja berdasarkan prinsip pemotongan sinar cahaya antara LED dan fototransistor. Sensor ini mendeteksi gerakan atau keberadaan objek yang melewati celahnya. Sangat berguna dalam deteksi putaran roda, sistem encoder, atau penghitung benda pada jalur produksi.",
+            "price": 26000,
+            "image": "assets/images/photo_interrupter.png"
+        },
+        {
+            "name": "Fingerprint Sensor",
+            "desc": "Fingerprint Sensor adalah modul biometrik yang digunakan untuk mengenali sidik jari manusia. Sensor ini memiliki modul optik dan algoritma pencocokan sidik jari yang mampu menyimpan hingga ratusan data pengguna. Digunakan dalam sistem keamanan seperti pintu otomatis, absensi, dan kontrol akses berbasis identitas biometrik.",
+            "price": 140000,
+            "image": "assets/images/fingerprint.png"
+        },
+        {
+            "name": "Accelerometer MPU6050",
+            "desc": "MPU6050 adalah modul sensor 6-sumbu yang menggabungkan akselerometer 3-sumbu dan gyroscope 3-sumbu. Sensor ini menggunakan komunikasi I2C dan sering digunakan dalam proyek robotika, drone, sistem stabilisasi kamera, dan wearable device untuk mendeteksi percepatan, orientasi, dan rotasi.",
+            "price": 40000,
+            "image": "assets/images/mpu6050.png"
+        },
+        {
+            "name": "Magnet Sensor",
+            "desc": "Magnet Sensor atau Hall Effect Sensor digunakan untuk mendeteksi medan magnet. Saat terkena magnet, sensor menghasilkan tegangan listrik yang dapat diukur oleh mikrokontroler. Sering digunakan pada sistem keamanan pintu, pengukur kecepatan roda, dan proyek deteksi magnetik lainnya.",
+            "price": 25000,
+            "image": "assets/images/magnet_sensor.png"
+        },
+        {
+            "name": "Gas MQ-135",
+            "desc": "MQ-135 adalah sensor gas multifungsi yang dapat mendeteksi amonia (NH3), karbon dioksida (CO2), alkohol, benzena, dan polusi udara lainnya. Sensor ini cocok untuk aplikasi monitoring kualitas udara dalam ruangan, sistem ventilasi pintar, serta proyek lingkungan yang membutuhkan analisis udara real-time.",
+            "price": 38000,
+            "image": "assets/images/mq135.png"
+        },
+        {
+            "name": "Capacitive Touch Sensor",
+            "desc": "Capacitive Touch Sensor bekerja berdasarkan perubahan kapasitansi ketika jari manusia menyentuh permukaannya. Sensor ini memberikan output digital saat disentuh, sangat populer digunakan untuk membuat tombol sentuh (touch button) pada perangkat elektronik modern, lampu sentuh, dan antarmuka interaktif.",
+            "price": 15000,
+            "image": "assets/images/touch_sensor.png"
+        },
+        {
+            "name": "Pulse Sensor",
+            "desc": "Pulse Sensor adalah sensor detak jantung yang menggunakan LED dan fotodioda untuk mendeteksi aliran darah di ujung jari atau telinga. Sensor ini menghasilkan sinyal analog yang merepresentasikan denyut nadi pengguna. Cocok untuk aplikasi kesehatan seperti monitor detak jantung, wearable fitness tracker, dan penelitian biomedis.",
+            "price": 75000,
+            "image": "assets/images/pulse_sensor.png"
+        },
+        {
+            "name": "UV Sensor GUVA-S12D",
+            "desc": "GUVA-S12D adalah sensor ultraviolet (UV) yang mendeteksi intensitas sinar UV di lingkungan sekitar. Sensor ini menghasilkan sinyal analog yang sebanding dengan tingkat radiasi UV, berguna untuk sistem pemantauan cuaca, kesehatan kulit, dan alat pengukur paparan sinar matahari.",
+            "price": 55000,
+            "image": "assets/images/uv_sensor.png"
+        },
+        {
+            "name": "Air Quality Sensor",
+            "desc": "Air Quality Sensor digunakan untuk mengukur tingkat polusi udara dan indeks kualitas udara (AQI). Sensor ini mampu mendeteksi partikel PM2.5, PM10, dan gas berbahaya di udara. Sangat cocok untuk sistem pemantauan udara pintar, proyek lingkungan, dan sistem peringatan dini polusi.",
+            "price": 85000,
+            "image": "assets/images/air_quality.png"
+        },
+        {
+            "name": "Flex Sensor",
+            "desc": "Flex Sensor adalah sensor berbasis resistansi yang berubah nilainya ketika ditekuk. Semakin besar derajat kelengkungan, semakin besar resistansinya. Sensor ini banyak digunakan dalam sarung tangan robotik, deteksi gerakan jari, dan proyek wearable berbasis interaksi gerak.",
+            "price": 70000,
+            "image": "assets/images/flex_sensor.png"
+        },
+        {
+            "name": "Water Flow Sensor",
+            "desc": "Water Flow Sensor digunakan untuk mengukur laju aliran air dalam pipa. Sensor ini bekerja dengan prinsip rotasi baling-baling kecil yang menghasilkan pulsa listrik setiap kali air mengalir. Data tersebut digunakan untuk menghitung volume air yang lewat. Cocok untuk sistem pemantauan air, irigasi otomatis, dan proyek penghematan sumber daya.",
+            "price": 65000,
+            "image": "assets/images/water_flow.png"
+        },
+        {
+            "name": "Infrared Temperature MLX90614",
+            "desc": "MLX90614 adalah sensor suhu non-kontak berbasis inframerah yang mampu mengukur suhu permukaan objek tanpa menyentuhnya. Sensor ini memiliki akurasi tinggi dan digunakan dalam aplikasi seperti termometer digital, sistem keamanan industri, dan deteksi suhu tubuh. Komunikasi data dilakukan melalui antarmuka I2C yang kompatibel dengan berbagai mikrokontroler.",
+            "price": 120000,
+            "image": "assets/images/mlx90614.png"
+        }
+    ],
+    "Output & Actuation Devices": [
+        {
+            "name": "Relay Module",
+            "desc": "Relay Module adalah perangkat saklar elektronik yang memungkinkan mikrokontroler mengendalikan beban bertegangan tinggi seperti lampu, motor, atau peralatan rumah tangga. Modul ini bekerja dengan prinsip elektromagnetik yang membuka atau menutup sirkuit melalui sinyal digital bertegangan rendah. Biasanya dilengkapi dengan indikator LED, optocoupler, dan terminal sekrup untuk keamanan. Cocok untuk proyek otomasi rumah, sistem keamanan, dan kontrol daya industri kecil.",
+            "price": 20000,
+            "image": "assets/images/relay.png"
+        },
+        {
+            "name": "Servo Motor",
+            "desc": "Servo Motor adalah aktuator presisi tinggi yang dapat mengatur posisi sudut secara akurat menggunakan sinyal PWM. Komponen ini memiliki sistem umpan balik internal yang memastikan gerakan sesuai perintah. Umumnya digunakan dalam proyek robotika, sistem kemudi otomatis, dan mekanisme kontrol yang membutuhkan pergerakan terbatas antara 0° hingga 180°. Mudah digunakan dengan Arduino maupun ESP32.",
+            "price": 45000,
+            "image": "assets/images/servo.png"
+        },
+        {
+            "name": "Buzzer",
+            "desc": "Buzzer merupakan aktuator suara sederhana yang menghasilkan bunyi atau alarm ketika diberi sinyal listrik. Biasanya digunakan untuk notifikasi sistem, indikator status, dan alarm peringatan. Ada dua jenis buzzer: aktif (dengan osilator internal) dan pasif (diperlukan sinyal PWM). Komponen ini sering ditemukan pada sistem keamanan, alarm kebakaran, dan perangkat elektronik kecil.",
+            "price": 10000,
+            "image": "assets/images/buzzer.png"
+        },
+        {
+            "name": "DC Motor",
+            "desc": "DC Motor adalah motor listrik yang beroperasi dengan arus searah dan menghasilkan gerakan rotasi kontinu. Kecepatan dan arah putarannya dapat dikendalikan menggunakan rangkaian driver motor seperti L298N. Banyak digunakan dalam proyek robot, mobil mainan, sistem conveyor mini, dan mekanisme gerak otomatis.",
+            "price": 30000,
+            "image": "assets/images/dc_motor.png"
+        },
+        {
+            "name": "Stepper Motor",
+            "desc": "Stepper Motor adalah motor listrik yang bergerak dalam langkah-langkah diskret, sehingga memberikan kontrol rotasi presisi tinggi. Cocok untuk aplikasi seperti printer 3D, CNC, dan sistem pemindaian. Dikendalikan menggunakan driver seperti A4988 atau ULN2003, stepper motor memungkinkan posisi yang akurat tanpa sensor tambahan.",
+            "price": 80000,
+            "image": "assets/images/stepper.png"
+        },
+        {
+            "name": "LED Module",
+            "desc": "LED Module merupakan modul penerangan yang terdiri dari beberapa LED yang dapat digunakan untuk indikator status, tampilan visual, atau efek pencahayaan. Biasanya sudah dilengkapi resistor untuk proteksi arus. Modul ini sangat efisien, tahan lama, dan mudah diintegrasikan dengan mikrokontroler menggunakan output digital sederhana.",
+            "price": 12000,
+            "image": "assets/images/led.png"
+        },
+        {
+            "name": "LCD 16x2",
+            "desc": "LCD 16x2 adalah layar karakter dengan dua baris dan enam belas kolom yang digunakan untuk menampilkan teks atau data dari mikrokontroler. Menggunakan driver HD44780 dan dapat dihubungkan dengan Arduino melalui antarmuka paralel atau I2C. Umumnya dipakai untuk menampilkan nilai sensor, menu sistem, atau status perangkat.",
+            "price": 40000,
+            "image": "assets/images/lcd.png"
+        },
+        {
+            "name": "OLED Display 0.96\"",
+            "desc": "OLED Display 0.96 inci adalah layar kecil beresolusi tinggi berbasis teknologi organik LED yang hemat daya dan memiliki kontras tinggi. Mendukung antarmuka I2C atau SPI, cocok untuk menampilkan teks, grafik sederhana, atau ikon status dalam proyek IoT dan perangkat wearable.",
+            "price": 75000,
+            "image": "assets/images/oled.png"
+        },
+        {
+            "name": "RGB LED Strip",
+            "desc": "RGB LED Strip adalah pita LED fleksibel yang mampu memancarkan berbagai warna melalui kombinasi merah, hijau, dan biru. Dapat dikendalikan dengan mikrokontroler menggunakan chip WS2812 atau SK6812 untuk efek animasi dinamis. Ideal untuk dekorasi, pencahayaan ambient, dan proyek interaktif.",
+            "price": 60000,
+            "image": "assets/images/rgb_strip.png"
+        },
+        {
+            "name": "7-Segment Display",
+            "desc": "7-Segment Display digunakan untuk menampilkan angka dan karakter sederhana menggunakan tujuh batang LED. Biasanya digunakan dalam jam digital, penghitung, dan indikator angka. Dapat dikontrol langsung dari mikrokontroler atau melalui IC driver seperti TM1637.",
+            "price": 15000,
+            "image": "assets/images/seven_segment.png"
+        },
+        {
+            "name": "Laser Module",
+            "desc": "Laser Module menghasilkan sinar laser merah dengan fokus tajam yang dapat digunakan untuk sistem deteksi, penunjuk, atau transmisi optik. Modul ini bekerja dengan tegangan rendah (biasanya 5V) dan sering digunakan dalam proyek keamanan, sistem penyelarasan, atau komunikasi optik sederhana.",
+            "price": 20000,
+            "image": "assets/images/laser.png"
+        },
+        {
+            "name": "Piezo Buzzer",
+            "desc": "Piezo Buzzer adalah aktuator berbasis efek piezoelektrik yang menghasilkan getaran suara saat diberi sinyal listrik. Memiliki respon cepat, tahan lama, dan konsumsi daya rendah. Umum digunakan pada alat ukur, sistem notifikasi, dan perangkat portable.",
+            "price": 12000,
+            "image": "assets/images/piezo.png"
+        },
+        {
+            "name": "Vibration Motor",
+            "desc": "Vibration Motor digunakan untuk menghasilkan getaran mekanis, biasanya sebagai bentuk umpan balik (feedback) di perangkat elektronik seperti smartphone atau wearable device. Komponen ini bekerja dengan arus DC kecil dan mudah dikontrol menggunakan sinyal digital atau PWM.",
+            "price": 25000,
+            "image": "assets/images/vibration_motor.png"
+        },
+        {
+            "name": "Solenoid Lock",
+            "desc": "Solenoid Lock adalah kunci elektromagnetik yang bekerja dengan prinsip tarikan magnet untuk membuka atau menutup pengunci mekanik. Sering digunakan dalam sistem pintu otomatis, brankas elektronik, dan sistem akses kontrol berbasis RFID atau keypad.",
+            "price": 85000,
+            "image": "assets/images/solenoid.png"
+        },
+        {
+            "name": "Heater Module",
+            "desc": "Heater Module merupakan modul pemanas kecil berbasis elemen resistif yang mengubah energi listrik menjadi panas. Digunakan dalam eksperimen suhu, pengeringan, dan kontrol termal sederhana. Dapat dikontrol dengan relay atau transistor sesuai kebutuhan daya.",
+            "price": 65000,
+            "image": "assets/images/heater.png"
+        },
+        {
+            "name": "Cooling Fan 5V",
+            "desc": "Cooling Fan 5V adalah kipas DC kecil yang digunakan untuk pendinginan sirkuit atau mikrokontroler agar tidak overheat. Ideal untuk proyek berbasis Raspberry Pi, power supply, atau enclosure tertutup.",
+            "price": 30000,
+            "image": "assets/images/fan.png"
+        },
+        {
+            "name": "Laser Diode",
+            "desc": "Laser Diode adalah sumber cahaya sempit dengan panjang gelombang spesifik, digunakan dalam sistem presisi seperti sensor jarak, komunikasi optik, dan perangkat pemotretan. Dikenal karena efisiensinya yang tinggi dan kemampuan fokus tajam.",
+            "price": 50000,
+            "image": "assets/images/laser_diode.png"
+        },
+        {
+            "name": "LED Matrix",
+            "desc": "LED Matrix adalah tampilan berbasis array LED yang dapat digunakan untuk menampilkan teks, simbol, atau animasi sederhana. Umumnya dikontrol menggunakan IC MAX7219 atau HT16K33, menjadikannya cocok untuk papan informasi digital atau tampilan IoT.",
+            "price": 95000,
+            "image": "assets/images/led_matrix.png"
+        },
+        {
+            "name": "Speaker Module",
+            "desc": "Speaker Module adalah aktuator audio kecil yang menghasilkan suara dari sinyal listrik. Cocok untuk sistem suara notifikasi, asisten suara, atau perangkat multimedia IoT. Biasanya bekerja pada rentang frekuensi 200Hz–20kHz.",
+            "price": 40000,
+            "image": "assets/images/speaker.png"
+        },
+        {
+            "name": "Mini Pump",
+            "desc": "Mini Pump adalah pompa air kecil berbasis motor DC yang digunakan untuk memindahkan cairan dalam sistem otomatisasi sederhana seperti hidroponik, pendingin cair, atau eksperimen sains. Dapat dikendalikan dengan relay atau transistor.",
+            "price": 60000,
+            "image": "assets/images/pump.png"
+        },
+        {
+            "name": "Laser TOF Sensor",
+            "desc": "Laser Time-of-Flight (TOF) Sensor mengukur jarak menggunakan pantulan sinar laser dan waktu tempuhnya. Sensor ini memberikan hasil sangat akurat dan cepat, cocok untuk sistem deteksi jarak, robotika, dan navigasi otomatis.",
+            "price": 130000,
+            "image": "assets/images/tof.png"
+        },
+        {
+            "name": "Servo 360°",
+            "desc": "Servo 360° adalah versi khusus dari servo motor yang dapat berputar penuh tanpa batas. Digunakan untuk aplikasi yang membutuhkan rotasi terus-menerus seperti roda robot, kamera pan-tilt, dan sistem rotasi kontrol penuh.",
+            "price": 55000,
+            "image": "assets/images/servo360.png"
+        },
+        {
+            "name": "Heater Pad",
+            "desc": "Heater Pad adalah lembaran pemanas fleksibel yang digunakan untuk aplikasi pemanasan permukaan seperti inkubator, printer 3D, atau sistem pengering IoT. Tersedia dalam berbagai ukuran dan daya.",
+            "price": 85000,
+            "image": "assets/images/heater_pad.png"
+        },
+        {
+            "name": "Electromagnet",
+            "desc": "Electromagnet menghasilkan medan magnet kuat ketika dialiri arus listrik, digunakan untuk sistem penggerak, pengunci, atau eksperimen magnetik. Medan magnet dapat dikontrol dengan mudah menggunakan mikrokontroler dan transistor penggerak.",
+            "price": 40000,
+            "image": "assets/images/electromagnet.png"
+        },
+        {
+            "name": "OLED Display 1.3\"",
+            "desc": "OLED Display 1.3 inci adalah layar kecil beresolusi tinggi berbasis teknologi OLED yang menawarkan kontras tinggi dan konsumsi daya rendah. Ukuran lebih besar dari versi 0.96 inci membuatnya ideal untuk antarmuka pengguna yang menampilkan grafik dan teks lebih detail.",
+            "price": 95000,
+            "image": "assets/images/oled13.png"
+        }
+    ],
+    "Connectivity & Power Modules": [
+        {
+            "name": "HC-05 Bluetooth",
+            "desc": "HC-05 Bluetooth Module adalah modul komunikasi nirkabel berbasis Bluetooth v2.0 yang memungkinkan mikrokontroler seperti Arduino, ESP32, atau Raspberry Pi untuk bertukar data dengan perangkat lain seperti smartphone atau laptop. Modul ini mendukung komunikasi serial (UART) dengan kecepatan hingga 9600 bps dan jarak transmisi hingga 10 meter. Cocok digunakan pada proyek IoT sederhana seperti kontrol lampu nirkabel, komunikasi antar perangkat, dan sistem monitoring berbasis Bluetooth.",
+            "price": 35000,
+            "image": "assets/images/hc05.png"
+        },
+        {
+            "name": "ESP8266 Wi-Fi",
+            "desc": "ESP8266 adalah modul Wi-Fi berbiaya rendah yang menyediakan konektivitas internet untuk proyek IoT. Dilengkapi dengan mikrokontroler 32-bit dan dukungan protokol TCP/IP, modul ini dapat berfungsi sebagai client atau server. ESP8266 banyak digunakan untuk proyek seperti smart home, sistem monitoring sensor berbasis web, dan kontrol jarak jauh melalui jaringan Wi-Fi.",
+            "price": 30000,
+            "image": "assets/images/esp8266.png"
+        },
+        {
+            "name": "Power Supply Module",
+            "desc": "Power Supply Module berfungsi sebagai sumber daya tegangan stabil untuk rangkaian elektronika. Modul ini biasanya memiliki output 3.3V dan 5V yang cocok untuk mikrokontroler, sensor, dan modul lain. Dilengkapi regulator tegangan LM317 atau AMS1117 dan proteksi polaritas, modul ini memastikan sistem IoT tetap aman dan stabil dari lonjakan arus listrik.",
+            "price": 40000,
+            "image": "assets/images/power_supply.png"
+        },
+        {
+            "name": "SIM800L GSM",
+            "desc": "SIM800L adalah modul komunikasi GSM/GPRS yang memungkinkan mikrokontroler mengirim dan menerima SMS, panggilan suara, serta koneksi internet 2G. Modul ini sering digunakan dalam proyek seperti sistem pelacak GPS, alarm SMS, dan sistem kontrol jarak jauh. Dapat dioperasikan pada tegangan 3.7–4.2V dan mendukung antena eksternal untuk sinyal yang lebih kuat.",
+            "price": 75000,
+            "image": "assets/images/sim800l.png"
+        },
+        {
+            "name": "NRF24L01",
+            "desc": "NRF24L01 adalah modul transceiver 2.4GHz berdaya rendah yang digunakan untuk komunikasi nirkabel antar mikrokontroler. Dengan jarak jangkau hingga 100 meter (atau lebih dengan antena eksternal), modul ini cocok untuk aplikasi seperti sistem sensor wireless, robot swarm, atau jaringan IoT lokal. Komunikasinya menggunakan protokol SPI dengan konsumsi daya yang sangat efisien.",
+            "price": 25000,
+            "image": "assets/images/nrf24l01.png"
+        },
+        {
+            "name": "LoRa SX1278",
+            "desc": "Modul LoRa SX1278 menggunakan teknologi Long Range (LoRa) untuk komunikasi jarak jauh hingga 10 km dengan konsumsi daya rendah. Beroperasi pada frekuensi 433MHz, modul ini sangat cocok untuk aplikasi seperti sistem monitoring pertanian, smart city, dan jaringan IoT di area terpencil. Mendukung komunikasi point-to-point maupun mesh.",
+            "price": 85000,
+            "image": "assets/images/lora.png"
+        },
+        {
+            "name": "XBee Module",
+            "desc": "XBee adalah modul komunikasi ZigBee yang mendukung topologi jaringan mesh dan komunikasi antar perangkat secara otomatis. Dikenal dengan stabilitas tinggi dan jangkauan luas hingga 1 km, XBee digunakan dalam sistem sensor nirkabel, otomasi industri, dan sistem kontrol rumah pintar. Komunikasinya berbasis serial dengan kemudahan konfigurasi melalui X-CTU software.",
+            "price": 180000,
+            "image": "assets/images/xbee.png"
+        },
+        {
+            "name": "USB to TTL Converter",
+            "desc": "Modul USB to TTL Converter digunakan untuk menghubungkan mikrokontroler (seperti Arduino Pro Mini atau ESP8266) ke komputer menggunakan antarmuka USB. Modul ini mengubah sinyal USB menjadi level logika serial TTL. Umumnya menggunakan chip CH340, CP2102, atau FT232, dan mendukung kecepatan hingga 115200 bps untuk proses upload dan debugging.",
+            "price": 25000,
+            "image": "assets/images/usb_ttl.png"
+        },
+        {
+            "name": "Ethernet Module ENC28J60",
+            "desc": "ENC28J60 adalah modul Ethernet berbasis chip dari Microchip yang menambahkan konektivitas jaringan LAN ke mikrokontroler. Modul ini beroperasi menggunakan antarmuka SPI dan mendukung protokol TCP/IP. Cocok untuk proyek IoT berbasis kabel seperti web server lokal, data logger jaringan, atau sistem kontrol industri berbasis LAN.",
+            "price": 45000,
+            "image": "assets/images/ethernet.png"
+        },
+        {
+            "name": "GPS Module NEO-6M",
+            "desc": "NEO-6M adalah modul GPS yang digunakan untuk mendapatkan data lokasi seperti koordinat latitude, longitude, kecepatan, dan waktu. Modul ini dilengkapi dengan antena keramik dan baterai backup untuk mempercepat akuisisi sinyal. Cocok untuk sistem pelacakan kendaraan, drone, atau proyek IoT berbasis lokasi.",
+            "price": 120000,
+            "image": "assets/images/gps.png"
+        },
+        {
+            "name": "RFID Module RC522",
+            "desc": "RC522 adalah modul pembaca RFID berbasis frekuensi 13.56 MHz yang digunakan untuk membaca dan menulis tag RFID. Komunikasi dilakukan melalui antarmuka SPI. Modul ini sering digunakan pada sistem keamanan seperti kontrol akses pintu, absensi karyawan, dan sistem inventarisasi berbasis kartu RFID.",
+            "price": 35000,
+            "image": "assets/images/rfid.png"
+        },
+        {
+            "name": "Wi-Fi Antenna",
+            "desc": "Wi-Fi Antenna digunakan untuk memperkuat dan memperluas jangkauan sinyal Wi-Fi pada modul seperti ESP8266, ESP32, atau router mini. Dilengkapi dengan konektor SMA, antena ini dapat meningkatkan kualitas koneksi, mengurangi interferensi, dan meningkatkan kecepatan transfer data pada proyek IoT.",
+            "price": 20000,
+            "image": "assets/images/wifi_antenna.png"
+        },
+        {
+            "name": "Bluetooth 5.0 Module",
+            "desc": "Modul Bluetooth 5.0 menghadirkan kecepatan transfer yang lebih tinggi, jangkauan lebih luas, dan konsumsi daya lebih rendah dibandingkan versi sebelumnya. Ideal untuk komunikasi BLE (Bluetooth Low Energy) pada proyek IoT modern seperti perangkat wearable, sensor pintar, dan sistem monitoring real-time.",
+            "price": 55000,
+            "image": "assets/images/bt5.png"
+        },
+        {
+            "name": "4G LTE Module SIM7600",
+            "desc": "SIM7600 adalah modul komunikasi berbasis 4G LTE yang mendukung koneksi internet berkecepatan tinggi serta fitur GPS dan SMS. Modul ini memungkinkan mikrokontroler mengirim data ke server cloud secara real-time, cocok untuk aplikasi IoT industri, pelacakan kendaraan, atau sistem keamanan terpadu.",
+            "price": 230000,
+            "image": "assets/images/sim7600.png"
+        },
+        {
+            "name": "Power Bank 5V",
+            "desc": "Power Bank 5V berfungsi sebagai sumber daya portabel untuk proyek IoT. Dapat digunakan untuk menyalakan mikrokontroler, sensor, atau modul nirkabel saat di lapangan tanpa catu daya tetap. Kapasitas bervariasi antara 2000–10000 mAh dengan perlindungan overcharge dan overcurrent.",
+            "price": 70000,
+            "image": "assets/images/powerbank.png"
+        },
+        {
+            "name": "Solar Panel 6V",
+            "desc": "Solar Panel 6V adalah sumber energi ramah lingkungan yang mengubah cahaya matahari menjadi listrik DC. Sering digunakan dalam proyek IoT outdoor seperti sistem irigasi otomatis, sensor cuaca, dan stasiun data lingkungan. Dapat dihubungkan dengan baterai dan regulator tegangan untuk suplai stabil.",
+            "price": 90000,
+            "image": "assets/images/solar_panel.png"
+        },
+        {
+            "name": "Battery Holder",
+            "desc": "Battery Holder adalah wadah baterai yang berfungsi sebagai tempat dan konektor sumber daya portabel bagi mikrokontroler atau rangkaian elektronik. Biasanya mendukung baterai AA, AAA, atau Li-ion, dan dilengkapi kabel atau terminal untuk koneksi mudah ke breadboard atau PCB.",
+            "price": 15000,
+            "image": "assets/images/battery_holder.png"
+        },
+        {
+            "name": "DC-DC Buck Converter",
+            "desc": "DC-DC Buck Converter adalah modul penurun tegangan (step-down converter) yang mengubah tegangan input tinggi menjadi tegangan output yang lebih rendah dengan efisiensi tinggi. Cocok untuk menurunkan tegangan baterai 12V menjadi 5V untuk modul IoT. Umumnya menggunakan chip LM2596 dengan potensiometer pengatur output.",
+            "price": 30000,
+            "image": "assets/images/buck_converter.png"
+        },
+        {
+            "name": "DC-DC Boost Converter",
+            "desc": "DC-DC Boost Converter adalah modul peningkat tegangan (step-up converter) yang menaikkan tegangan input rendah ke level lebih tinggi. Digunakan untuk aplikasi di mana suplai daya terbatas seperti proyek portable bertenaga baterai. Modul ini efisien dan banyak digunakan pada sistem IoT outdoor.",
+            "price": 35000,
+            "image": "assets/images/boost_converter.png"
+        },
+        {
+            "name": "Wi-Fi Range Extender",
+            "desc": "Wi-Fi Range Extender memperluas jangkauan sinyal Wi-Fi di area yang lemah. Alat ini dapat digunakan untuk memperluas jaringan IoT agar tetap terhubung di seluruh area kerja. Umumnya memiliki fungsi repeater dan bridge, cocok untuk rumah pintar atau sistem monitoring luas.",
+            "price": 120000,
+            "image": "assets/images/wifi_extender.png"
+        },
+        {
+            "name": "ZigBee Module",
+            "desc": "ZigBee Module adalah perangkat komunikasi nirkabel berbasis IEEE 802.15.4 yang digunakan untuk membangun jaringan mesh antar perangkat IoT. ZigBee menawarkan konsumsi daya rendah dan jangkauan luas, ideal untuk sistem sensor rumah pintar, kontrol industri, dan otomasi gedung.",
+            "price": 95000,
+            "image": "assets/images/zigbee.png"
+        },
+        {
+            "name": "NB-IoT Module",
+            "desc": "NB-IoT (Narrowband Internet of Things) Module adalah modul komunikasi seluler berdaya rendah yang mendukung koneksi perangkat IoT ke jaringan operator dengan jangkauan luas dan konsumsi energi rendah. Cocok untuk proyek seperti pemantauan lingkungan, meteran pintar, dan sistem pelacakan terpadu.",
+            "price": 200000,
+            "image": "assets/images/nbiot.png"
+        },
+        {
+            "name": "LoRaWAN Gateway",
+            "desc": "LoRaWAN Gateway adalah perangkat pusat yang menghubungkan node LoRa ke jaringan internet melalui protokol LoRaWAN. Berfungsi sebagai jembatan antara sensor jarak jauh dan server cloud. Ideal untuk sistem IoT skala besar seperti smart farming, pemantauan energi, dan smart city.",
+            "price": 1500000,
+            "image": "assets/images/lorawan_gateway.png"
+        },
+        {
+            "name": "Wireless Charging Module",
+            "desc": "Wireless Charging Module memungkinkan pengisian daya tanpa kabel menggunakan induksi elektromagnetik. Cocok untuk proyek wearable, perangkat IoT portabel, atau sistem tertutup yang tidak memungkinkan konektor fisik. Modul ini memiliki dua bagian utama: transmitter dan receiver coil.",
+            "price": 80000,
+            "image": "assets/images/wireless_charging.png"
+        }
+    ]
+}

@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Pengingat Waktu Salat Otomatis",
+        "desc": "Sistem berbasis mikrokontroler yang mengingatkan waktu salat secara otomatis menggunakan RTC dan buzzer.",
+        "dalil": "“Sesungguhnya salat itu adalah kewajiban yang ditentukan waktunya atas orang-orang yang beriman.” (QS. An-Nisa: 103)",
+        "tools": ["Arduino Uno", "RTC DS3231", "Buzzer", "LCD 16x2", "Push Button", "Resistor & Kabel Jumper"]
+    },
+    {
+        "title": "Sensor Kebersihan Masjid",
+        "desc": "Proyek IoT untuk memantau kebersihan masjid dan memberi notifikasi jika area tertentu perlu dibersihkan.",
+        "dalil": "“Kebersihan adalah sebagian dari iman.” (HR. Muslim)",
+        "tools": ["NodeMCU ESP8266", "Sensor Gas MQ-135", "Sensor Ultrasonik HC-SR04", "LED indikator", "Power Supply 5V", "Aplikasi Blynk"]
+    },
+    {
+        "title": "Monitoring Suhu Ruang Ibadah",
+        "desc": "Sistem berbasis sensor DHT11 untuk menjaga kenyamanan jamaah di ruang ibadah dengan pemantauan suhu dan kelembapan.",
+        "dalil": "“Dan Allah menjadikan bagimu tempat tinggal yang nyaman.” (QS. An-Nahl: 80)",
+        "tools": ["ESP32", "Sensor DHT11", "LCD OLED 0.96\"", "Kabel jumper", "Adaptor 5V", "Platform IoT (Thingspeak)"]
+    },
+    {
+        "title": "Kotak Amal Digital Berbasis IoT",
+        "desc": "Kotak amal dengan sensor berat dan notifikasi otomatis untuk memantau donasi secara real-time.",
+        "dalil": "“Perumpamaan orang yang menafkahkan hartanya di jalan Allah seperti sebutir benih yang menumbuhkan tujuh tangkai.” (QS. Al-Baqarah: 261)",
+        "tools": ["Load Cell + HX711", "ESP8266 NodeMCU", "LCD Display", "Powerbank/Adaptor", "Aplikasi IoT (Blynk/MQTT)"]
+    },
+    {
+        "title": "Sistem Pengingat Dzikir Harian",
+        "desc": "Aplikasi mobile yang mengingatkan pengguna untuk berdzikir harian dengan notifikasi dan penghitung otomatis.",
+        "dalil": "“Ingatlah kepada-Ku, niscaya Aku akan mengingatmu.” (QS. Al-Baqarah: 152)",
+        "tools": ["Smartphone Android", "Flutter SDK", "Firebase Cloud Messaging", "Local Database (SQFlite)", "Desain UI Islami"]
+    },
+    {
+        "title": "Lampu Otomatis Masjid",
+        "desc": "Sistem kontrol lampu otomatis menggunakan sensor cahaya untuk menghemat energi di masjid.",
+        "dalil": "“Dan janganlah kamu menukar yang baik dengan yang buruk.” (QS. Al-Baqarah: 26)",
+        "tools": ["Arduino Uno", "Sensor LDR", "Relay Module", "Lampu LED", "Power Supply 5V"]
+    },
+    {
+        "title": "Pompa Wudhu Otomatis",
+        "desc": "Pompa air berbasis sensor ultrasonik untuk memudahkan jamaah mengambil air wudhu tanpa menyentuh kran.",
+        "dalil": "“Allah menyukai orang-orang yang membersihkan diri.” (HR. Muslim)",
+        "tools": ["ESP32", "Sensor Ultrasonik HC-SR04", "Pompa Air Mini", "Relay Module", "Power Supply"]
+    },
+    {
+        "title": "Alat Hitung Jumlah Jamaah Masjid",
+        "desc": "Sistem berbasis sensor IR untuk menghitung jumlah orang yang masuk dan keluar masjid.",
+        "dalil": "“Dan hendaklah ada pengaturan di antara kalian.” (QS. Al-Hujurat: 9)",
+        "tools": ["Arduino Mega", "Sensor IR", "LCD 16x2", "Buzzer", "Kabel Jumper"]
+    },
+    {
+        "title": "Pengatur Suhu dan Kelembapan Mushola",
+        "desc": "IoT untuk menjaga kondisi ruang sholat tetap nyaman dengan sensor suhu dan kelembapan yang terkoneksi ke aplikasi mobile.",
+        "dalil": "“Allah menyukai tempat-tempat yang bersih.” (HR. Ahmad)",
+        "tools": ["ESP8266 NodeMCU", "Sensor DHT22", "Kipas Mini", "Relay Module", "Aplikasi Blynk"]
+    },
+    {
+        "title": "Jam Waktu Sholat Digital",
+        "desc": "Jam digital berbasis RTC yang menampilkan waktu sholat lengkap dan alarm azan otomatis.",
+        "dalil": "“Dirikanlah salat pada kedua tepi siang dan pada sebagian malam.” (QS. Hud: 114)",
+        "tools": ["Arduino Uno", "RTC DS3231", "Buzzer", "LED 7 Segment", "Push Button", "Power Supply"]
+    }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Pengenalan Dasar IoT",
+    "source": "https://iotforall.com/",
+    "desc": "Artikel ini membahas konsep dasar Internet of Things (IoT), mulai dari pengertian, contoh penerapan, hingga dampaknya pada kehidupan modern."
+  },
+  {
+    "title": "Etika Penggunaan Teknologi dalam Islam",
+    "source": "https://islamicstudies.org/",
+    "desc": "Pandangan Islam mengenai penggunaan teknologi secara etis dan bertanggung jawab, serta bagaimana teknologi dapat digunakan untuk kebaikan umat."
+  },
+  {
+    "title": "Belajar Elektronika untuk Pemula",
+    "source": "https://www.electronics-tutorials.ws/",
+    "desc": "Panduan lengkap bagi pemula untuk memahami dasar-dasar elektronika, mulai dari komponen dasar hingga perakitan rangkaian sederhana."
+  },
+  {
+    "title": "Smart Home dengan ESP32",
+    "source": "https://randomnerdtutorials.com/",
+    "desc": "Tutorial pembuatan sistem Smart Home berbasis ESP32 untuk mengontrol perangkat rumah tangga menggunakan koneksi Wi-Fi."
+  },
+  {
+    "title": "Teknologi AI dan Dampaknya bagi Umat",
+    "source": "https://muslimmatters.org/",
+    "desc": "Analisis bagaimana kecerdasan buatan (AI) dapat membawa manfaat besar bagi umat manusia jika diterapkan dengan nilai-nilai Islam."
+  },
+  {
+    "title": "Mengenal Arduino untuk Proyek IoT",
+    "source": "https://www.arduino.cc/en/Guide/HomePage",
+    "desc": "Panduan resmi Arduino untuk pemula yang ingin memulai proyek Internet of Things dan otomasi berbasis mikrokontroler."
+  },
+  {
+    "title": "Sensor dan Aktuator dalam IoT",
+    "source": "https://www.iotforall.com/sensors-and-actuators-iot",
+    "desc": "Mempelajari berbagai jenis sensor dan aktuator yang digunakan dalam proyek IoT, serta cara mengintegrasikannya ke dalam sistem."
+  },
+  {
+    "title": "Etika Digital di Era Modern",
+    "source": "https://www.islamicity.org/",
+    "desc": "Panduan etika digital menurut perspektif Islam, termasuk penggunaan media sosial, keamanan data, dan interaksi online yang sopan."
+  },
+  {
+    "title": "Proyek IoT untuk Pemula",
+    "source": "https://maker.pro/esp32/projects",
+    "desc": "Kumpulan proyek IoT sederhana untuk pemula menggunakan ESP32, Arduino, dan modul sensor, lengkap dengan tutorial langkah demi langkah."
+  },
+  {
+    "title": "Belajar Mikrokontroler ESP8266",
+    "source": "https://randomnerdtutorials.com/getting-started-with-esp8266/",
+    "desc": "Tutorial lengkap untuk memahami dan memprogram ESP8266, termasuk koneksi Wi-Fi, sensor, dan pengendalian perangkat jarak jauh."
+  },
+  {
+    "title": "Penerapan IoT dalam Kehidupan Islami",
+    "source": "https://www.muslimtech.org/",
+    "desc": "Ide-ide penerapan Internet of Things untuk membantu ibadah dan aktivitas Islami, seperti pengingat salat, pengelolaan masjid, dan amal digital."
+  },
+  {
+    "title": "Belajar Dasar Rangkaian Elektronika",
+    "source": "https://www.allaboutcircuits.com/",
+    "desc": "Tutorial komprehensif untuk memahami rangkaian listrik dan elektronika dasar, termasuk resistor, kapasitor, LED, dan sensor."
+  }
+]

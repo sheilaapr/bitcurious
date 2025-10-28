@@ -119,10 +119,12 @@ assets/data/
 
 ---
 
-## 👩‍💻 Pengembang
+## 👩‍💻 Developer
 **Sheila Apriliani Putri**  
 Program Studi Teknik Informatika — UIN Malang  
-📧 sheila@example.com  
+📧 230605110005@student.uin-malang.ac.id
+Mobile Programming & Practicum (C)
+Untuk Memenuhi Tugas Ujian Tengah Semester (UTS)
 
 ---
 

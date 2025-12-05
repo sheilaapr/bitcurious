@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:bitcurious/pages/project_detail_page.dart';
 
 class ProjectReferencesPage extends StatefulWidget {
   const ProjectReferencesPage({super.key});
@@ -10,120 +12,164 @@ class ProjectReferencesPage extends StatefulWidget {
 
 class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
   List<dynamic> projects = [];
-  List<bool> expandedStates = [];
-
-  Future<void> _loadProjects() async {
-    final data = await DefaultAssetBundle.of(context)
-        .loadString('assets/data/projects.json');
-    final jsonResult = json.decode(data);
-    setState(() {
-      projects = jsonResult;
-      expandedStates = List<bool>.filled(projects.length, false);
-    });
-  }
+  bool _isLoading = true;
+  String? _error;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
     _loadProjects();
+  }
+
+  /// Guard setState supaya tidak dipanggil setelah halaman di-pop (dispose)
+  @override
+  void setState(VoidCallback fn) {
+    if (!mounted) return;
+    super.setState(fn);
+  }
+
+  Future<void> _loadProjects() async {
+    try {
+      final jsonStr =
+          await rootBundle.loadString('assets/data/projects.json');
+      final decoded = json.decode(jsonStr);
+
+      if (decoded is List) {
+        setState(() {
+          projects = decoded;
+          _isLoading = false;
+          _error = null;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+          _error = 'Format projects.json tidak sesuai (harus List).';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+        _error = 'Gagal memuat project: $e';
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    const Color navy = Color(0xFF0B0C3A);
+    const Color white = Colors.white;
+
     return Scaffold(
+      backgroundColor: navy,
       appBar: AppBar(
-        title: const Text('Referensi Proyek Islami'),
-        backgroundColor: const Color(0xFF0B0C3A),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+        backgroundColor: navy,
+        elevation: 0,
+        foregroundColor: white,
+        title: const Text(
+          'Project Islami',
+          style: TextStyle(
+            color: white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
-      body: projects.isEmpty
-          ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: projects.length,
-              itemBuilder: (context, index) {
-                final p = projects[index];
-                final expanded = expandedStates[index];
-
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                  elevation: 3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.lightbulb,
-                                color: Colors.amber, size: 28),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                p['title'],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          p['desc'],
-                          maxLines: expanded ? null : 2,
-                          overflow: expanded
-                              ? TextOverflow.visible
-                              : TextOverflow.ellipsis,
-                        ),
-                        if (expanded) ...[
-                          const SizedBox(height: 10),
-                          Text(
-                            "Dalil: ${p['dalil']}",
-                            style: const TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text(
-                            "Alat dan Bahan:",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF0B0C3A),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                          ...List<Widget>.from(
-                            (p['alat_bahan'] as List).map(
-                              (item) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: Row(
-                                  children: [
-                                    const Icon(Icons.circle,
-                                        size: 8, color: Colors.black54),
-                                    const SizedBox(width: 8),
-                                    Expanded(child: Text(item)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-
-                      ],
-                    ),
-                  ),
-                );
-              },
+      body: Container(
+        width: double.infinity,
+        decoration: const BoxDecoration(
+          color: white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 12,
+              offset: Offset(0, -4),
             ),
+          ],
+        ),
+        child: _buildBody(),
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            _error!,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: Colors.redAccent),
+          ),
+        ),
+      );
+    }
+
+    if (projects.isEmpty) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            'Belum ada data project.\nCek kembali projects.json.',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: projects.length,
+      itemBuilder: (context, index) {
+        final proj = projects[index] as Map<String, dynamic>;
+        return Container(
+          margin: const EdgeInsets.only(bottom: 12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: const Color(0xFFF5F5FF),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x22000000),
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              ),
+            ],
+          ),
+          child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ProjectDetailPage(project: proj),
+                ),
+              );
+            },
+            leading: const Icon(
+              Icons.bolt_rounded,
+              color: Color(0xFF0B0C3A),
+            ),
+            title: Text(
+              proj['title'] ?? 'Tanpa Judul',
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 15,
+              ),
+            ),
+            subtitle: Text(
+              proj['short_desc'] ?? '',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        );
+      },
     );
   }
 }

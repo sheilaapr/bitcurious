@@ -1,8 +1,450 @@
+// import 'package:flutter/material.dart';
+
+// import 'component_list_pages.dart';
+// import 'articles_pages.dart';
+// import 'project_references_pages.dart';
+// import 'news_pages.dart';
+// import 'pinned_components_pages.dart';
+
+// class HomePages extends StatefulWidget {
+//   const HomePages({super.key});
+
+//   @override
+//   State<HomePages> createState() => _HomePagesState();
+// }
+
+// class _HomePagesState extends State<HomePages> {
+//   int _selectedIndex = 0;
+
+//   late final TextEditingController _searchController;
+
+//   final List<Widget> _pages = const [
+//     ComponentListPage(categoryName: 'All'),
+//     ArticlesPage(),
+//     ProjectReferencesPage(),
+//   ];
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     _searchController = TextEditingController();
+//   }
+
+//   @override
+//   void dispose() {
+//     _searchController.dispose();
+//     super.dispose();
+//   }
+
+//   /// Guard setState supaya kalau suatu saat ada callback/timer di sini,
+//   /// dia tidak akan update state setelah halaman di-pop.
+//   @override
+//   void setState(VoidCallback fn) {
+//     if (!mounted) return;
+//     super.setState(fn);
+//   }
+
+//   void _onItemTapped(int index) {
+//     setState(() {
+//       _selectedIndex = index;
+//     });
+//   }
+
+//   void _onSearchSubmitted(String value) {
+//     final query = value.trim();
+//     if (query.isEmpty) return;
+
+//     Navigator.push(
+//       context,
+//       MaterialPageRoute(
+//         builder: (_) => NewsPage(initialQuery: query),
+//       ),
+//     );
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     const Color navy = Color(0xFF0B0C3A);
+//     const Color white = Colors.white;
+
+//     return Scaffold(
+//       backgroundColor: navy,
+//       appBar: AppBar(
+//         backgroundColor: navy,
+//         elevation: 0,
+//         iconTheme: const IconThemeData(
+//           color: white,
+//         ),
+//         title: const Text(
+//           'BitCurious',
+//           style: TextStyle(
+//             color: white,
+//             fontWeight: FontWeight.bold,
+//             fontSize: 20,
+//           ),
+//         ),
+//       ),
+//       drawer: _buildDrawer(),
+//       body: Column(
+//         children: [
+//           // ====== HEADER TOP ======
+//           Padding(
+//             padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 const Text(
+//                   'Hello,',
+//                   style: TextStyle(
+//                     color: Colors.white70,
+//                     fontSize: 16,
+//                     fontStyle: FontStyle.italic,
+//                   ),
+//                 ),
+//                 const Text(
+//                   'Sheila!',
+//                   style: TextStyle(
+//                     color: white,
+//                     fontSize: 26,
+//                     fontWeight: FontWeight.bold,
+//                   ),
+//                 ),
+//                 const SizedBox(height: 16),
+
+//                 // Search glossy — sekarang untuk berita (News API)
+//                 Container(
+//                   padding: const EdgeInsets.symmetric(
+//                     horizontal: 14,
+//                     vertical: 6,
+//                   ),
+//                   decoration: BoxDecoration(
+//                     borderRadius: BorderRadius.circular(18),
+//                     color: Colors.white.withOpacity(0.10),
+//                     border: Border.all(color: Colors.white24, width: 1),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         color: Colors.black.withOpacity(0.22),
+//                         blurRadius: 12,
+//                         offset: const Offset(0, 6),
+//                       ),
+//                     ],
+//                   ),
+//                   child: Row(
+//                     children: [
+//                       const Icon(
+//                         Icons.search_rounded,
+//                         color: Colors.white,
+//                         size: 20,
+//                       ),
+//                       const SizedBox(width: 10),
+//                       Expanded(
+//                         child: TextField(
+//                           controller: _searchController,
+//                           style: const TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 13,
+//                           ),
+//                           decoration: const InputDecoration(
+//                             isDense: true,
+//                             border: InputBorder.none,
+//                             hintText:
+//                                 'Cari berita teknologi / IoT (mis: esp32, sensor)...',
+//                             hintStyle: TextStyle(
+//                               color: Colors.white70,
+//                               fontSize: 12,
+//                             ),
+//                           ),
+//                           textInputAction: TextInputAction.search,
+//                           onSubmitted: _onSearchSubmitted,
+//                         ),
+//                       ),
+//                       IconButton(
+//                         icon: const Icon(
+//                           Icons.arrow_forward_rounded,
+//                           color: Colors.white,
+//                           size: 20,
+//                         ),
+//                         onPressed: () =>
+//                             _onSearchSubmitted(_searchController.text),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+
+//                 const SizedBox(height: 18),
+
+//                 // Indicator dots
+//                 Row(
+//                   children: [
+//                     Container(
+//                       width: 20,
+//                       height: 6,
+//                       decoration: BoxDecoration(
+//                         color: Colors.white,
+//                         borderRadius: BorderRadius.circular(12),
+//                       ),
+//                     ),
+//                     const SizedBox(width: 6),
+//                     Container(
+//                       width: 10,
+//                       height: 6,
+//                       decoration: BoxDecoration(
+//                         color: Colors.white38,
+//                         borderRadius: BorderRadius.circular(12),
+//                       ),
+//                     ),
+//                     const SizedBox(width: 6),
+//                     Container(
+//                       width: 6,
+//                       height: 6,
+//                       decoration: BoxDecoration(
+//                         color: Colors.white24,
+//                         borderRadius: BorderRadius.circular(12),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+
+//           // ====== BODY PUTIH ======
+//           Expanded(
+//             child: Container(
+//               width: double.infinity,
+//               decoration: const BoxDecoration(
+//                 color: white,
+//                 borderRadius: BorderRadius.only(
+//                   topLeft: Radius.circular(28),
+//                   topRight: Radius.circular(28),
+//                 ),
+//                 boxShadow: [
+//                   BoxShadow(
+//                     color: Colors.black26,
+//                     blurRadius: 12,
+//                     offset: Offset(0, -4),
+//                   ),
+//                 ],
+//               ),
+//               child: Column(
+//                 children: [
+//                   const SizedBox(height: 12),
+
+//                   // Tab label kecil di atas
+//                   Padding(
+//                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//                     child: Row(
+//                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                       children: [
+//                         _buildTabChip('Komponen', 0),
+//                         _buildTabChip('Artikel', 1),
+//                         _buildTabChip('Project Islami', 2),
+//                       ],
+//                     ),
+//                   ),
+
+//                   const SizedBox(height: 12),
+//                   const Divider(
+//                     height: 1,
+//                     thickness: 0.8,
+//                   ),
+
+//                   Expanded(
+//                     child: IndexedStack(
+//                       index: _selectedIndex,
+//                       children: _pages,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//       bottomNavigationBar: _buildBottomNav(),
+//     );
+//   }
+
+//   Widget _buildTabChip(String label, int index) {
+//     final bool isSelected = _selectedIndex == index;
+
+//     return GestureDetector(
+//       onTap: () => _onItemTapped(index),
+//       child: AnimatedContainer(
+//         duration: const Duration(milliseconds: 200),
+//         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+//         decoration: BoxDecoration(
+//           color: isSelected ? const Color(0xFF0B0C3A) : Colors.transparent,
+//           borderRadius: BorderRadius.circular(16),
+//           border: Border.all(
+//             color:
+//                 isSelected ? const Color(0xFF0B0C3A) : Colors.grey.shade300,
+//           ),
+//         ),
+//         child: Text(
+//           label,
+//           style: TextStyle(
+//             fontSize: 12,
+//             fontWeight: FontWeight.w600,
+//             color: isSelected ? Colors.white : Colors.grey.shade700,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   Widget _buildBottomNav() {
+//     return BottomNavigationBar(
+//       currentIndex: _selectedIndex,
+//       onTap: _onItemTapped,
+//       elevation: 10,
+//       selectedItemColor: const Color(0xFF0B0C3A),
+//       unselectedItemColor: Colors.grey,
+//       items: const [
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.memory_rounded),
+//           label: 'Komponen',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.menu_book_rounded),
+//           label: 'Artikel',
+//         ),
+//         BottomNavigationBarItem(
+//           icon: Icon(Icons.bolt_rounded),
+//           label: 'Project',
+//         ),
+//       ],
+//     );
+//   }
+
+//   Drawer _buildDrawer() {
+//     const Color navy = Color(0xFF0B0C3A);
+
+//     return Drawer(
+//       child: Column(
+//         children: [
+//           DrawerHeader(
+//             decoration: const BoxDecoration(
+//               color: navy,
+//             ),
+//             child: Row(
+//               children: [
+//                 const CircleAvatar(
+//                   radius: 32,
+//                   backgroundImage:
+//                       AssetImage('assets/images/image_sheila.JPG'),
+//                 ),
+//                 const SizedBox(width: 12),
+//                 Expanded(
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.center,
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: const [
+//                       Text(
+//                         'Sheila Apriliani Putri',
+//                         style: TextStyle(
+//                           color: Colors.white,
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 18,
+//                         ),
+//                       ),
+//                       SizedBox(height: 4),
+//                       Text(
+//                         'Elektronika & IoT Enthusiast',
+//                         style: TextStyle(
+//                           color: Colors.white70,
+//                           fontSize: 12,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//           ListTile(
+//             leading: const Icon(Icons.home_rounded),
+//             title: const Text('Home'),
+//             onTap: () {
+//               Navigator.pop(context);
+//             },
+//           ),
+//           ListTile(
+//             leading: const Icon(Icons.push_pin_rounded),
+//             title: const Text('Pinned Components'),
+//             onTap: () {
+//               Navigator.pop(context);
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (_) => const PinnedComponentsPage(),
+//                 ),
+//               );
+//             },
+//           ),
+//           ListTile(
+//             leading: const Icon(Icons.newspaper_rounded),
+//             title: const Text('Berita Teknologi (API Publik)'),
+//             onTap: () {
+//               Navigator.pop(context);
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (_) => const NewsPage(),
+//                 ),
+//               );
+//             },
+//           ),
+//           ListTile(
+//             leading: const Icon(Icons.info_outline_rounded),
+//             title: const Text('About Us'),
+//             onTap: () {
+//               Navigator.pop(context);
+//               _showAboutDialog();
+//             },
+//           ),
+//           const Spacer(),
+//           ListTile(
+//             leading: const Icon(Icons.logout),
+//             title: const Text('Logout'),
+//             onTap: () {
+//               Navigator.pop(context);
+//               // Implementasi logout jika ada
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+
+//   void _showAboutDialog() {
+//     showDialog(
+//       context: context,
+//       builder: (_) => AlertDialog(
+//         title: const Text('About BitCurious'),
+//         content: const Text(
+//           'BitCurious adalah aplikasi pengenalan komponen elektronika dan IoT\n'
+//           'serta referensi project bernuansa Islami.',
+//         ),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Navigator.pop(context),
+//             child: const Text('Tutup'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
-import 'package:bitcurious/pages/component_list_pages.dart';
-import 'package:bitcurious/pages/project_references_pages.dart';
-import 'package:bitcurious/pages/articles_pages.dart';
-import 'package:bitcurious/pages/saved_pages.dart';
+
+import 'components_categories_pages.dart';
+import 'articles_pages.dart';
+import 'project_references_pages.dart';
+import 'news_pages.dart';
+import 'pinned_components_pages.dart';
 
 class HomePages extends StatefulWidget {
   const HomePages({super.key});
@@ -12,453 +454,422 @@ class HomePages extends StatefulWidget {
 }
 
 class _HomePagesState extends State<HomePages> {
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
+
+  late final TextEditingController _searchController;
+
+  // Tab 0 → kategori komponen
+  // Tab 1 → artikel
+  // Tab 2 → project Islami
+  // Tab 3 → pinned
+  late final List<Widget> _pages;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController = TextEditingController();
+    _pages = const [
+      ComponentsCategoriesPage(),
+      ArticlesPage(),
+      ProjectReferencesPage(),
+      PinnedComponentsPage(),
+    ];
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  // Guard kalau nanti ada callback di sini
+  @override
+  void setState(VoidCallback fn) {
+    if (!mounted) return;
+    super.setState(fn);
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  void _onSearchSubmitted(String value) {
+    final query = value.trim();
+    if (query.isEmpty) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => NewsPage(initialQuery: query),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     const Color navy = Color(0xFF0B0C3A);
     const Color white = Colors.white;
-    const Color yellow = Color(0xFFE8F020);
-    const Color grey = Color(0xFFE6E6E6);
-
-    // Daftar kategori utama
-    final List<Map<String, dynamic>> categories = [
-      {
-        'name': 'Controller & Processing Units',
-        'color': const Color(0xFFE6E6FA),
-      },
-      {'name': 'Input & Sensing Devices', 'color': const Color(0xFFE6E6FA)},
-      {'name': 'Output & Actuation Devices', 'color': const Color(0xFFE6E6FA)},
-      {
-        'name': 'Connectivity & Power Modules',
-        'color': const Color(0xFFE6E6FA),
-      },
-    ];
-
-    // Menu sidebar
-    final List<Map<String, dynamic>> menuItems = [
-      {'icon': Icons.home_rounded, 'text': 'Home'},
-      {'icon': Icons.science_rounded, 'text': 'Referensi Proyek Islami'},
-      {'icon': Icons.menu_book_rounded, 'text': 'Artikel / Edukasi'},
-      {'icon': Icons.bookmark_rounded, 'text': 'Notes Tersimpan'},
-      {'icon': Icons.info_outline_rounded, 'text': 'About Us'},
-    ];
 
     return Scaffold(
-      backgroundColor: white,
-
-      // === SIDEBAR MENU ===
-      drawer: Drawer(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-          ),
+      backgroundColor: navy,
+      appBar: AppBar(
+        backgroundColor: navy,
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: white,
         ),
-        child: Container(
-          decoration: const BoxDecoration(
+        title: const Text(
+          'BitCurious',
+          style: TextStyle(
             color: white,
-          ),
-          child: Column(
-            children: [
-              DrawerHeader(
-                decoration: const BoxDecoration(
-                  color: navy,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(25),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 28,
-                      backgroundImage: AssetImage(
-                        'assets/images/image_sheila.JPG',
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text(
-                          'Sheila Apr_',
-                          style: TextStyle(
-                            color: white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          'BitCurious User',
-                          style: TextStyle(color: Colors.white70),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // === MENU ITEM ===
-              Expanded(
-                child: ListView.builder(
-                  itemCount: menuItems.length,
-                  itemBuilder: (context, index) {
-                    final item = menuItems[index];
-                    return _buildDrawerItem(
-                      icon: item['icon'],
-                      text: item['text'],
-                      isActive: selectedIndex == index,
-                      onTap: () {
-                        setState(() => selectedIndex = index);
-                        Navigator.pop(context);
-
-                        // Navigasi sesuai item
-                        switch (index) {
-                          case 0:
-                            break;
-                          case 1:
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const ProjectReferencesPage(),
-                              ),
-                            );
-                            break;
-                          case 2:
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const ArticlesPage(),
-                              ),
-                            );
-                            break;
-                          case 3:
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => const SavedPage(),
-                              ),
-                            );
-                            break;
-                          case 4:
-                            showAboutDialog(
-                              context: context,
-                              applicationName: 'BitCurious',
-                              applicationVersion: '1.0.0',
-                              children: const [
-                                Text(
-                                  'BitCurious adalah aplikasi pembelajaran interaktif '
-                                  'yang membantu pengguna memahami komponen elektronik '
-                                  'dan konsep Internet of Things (IoT) secara praktis.',
-                                ),
-                              ],
-                            );
-                            break;
-                        }
-                      },
-                    );
-                  },
-                ),
-              ),
-            ],
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
           ),
         ),
       ),
+      drawer: _buildDrawer(),
+      body: Column(
+        children: [
+          // ====== HEADER TOP (welcome + search berita) ======
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Hello,',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                const Text(
+                  'Sheila!',
+                  style: TextStyle(
+                    color: white,
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
 
-      // === BODY UTAMA ===
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ================= HEADER =================
-            Container(
+                // Search berita (News API)
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: Colors.white.withOpacity(0.10),
+                    border: Border.all(color: Colors.white24, width: 1),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.22),
+                        blurRadius: 12,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.search_rounded,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 13,
+                          ),
+                          decoration: const InputDecoration(
+                            isDense: true,
+                            border: InputBorder.none,
+                            hintText:
+                                'Cari berita teknologi / IoT (mis: esp32, sensor)...',
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 12,
+                            ),
+                          ),
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: _onSearchSubmitted,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_rounded,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                        onPressed: () =>
+                            _onSearchSubmitted(_searchController.text),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 18),
+
+                // Indicator dots
+                Row(
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Container(
+                      width: 10,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: Colors.white38,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Container(
+                      width: 6,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: Colors.white24,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          // ====== BODY PUTIH ======
+          Expanded(
+            child: Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: navy,
-                borderRadius: BorderRadius.circular(20),
+              decoration: const BoxDecoration(
+                color: white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(28),
+                  topRight: Radius.circular(28),
+                ),
                 boxShadow: [
                   BoxShadow(
-                    color: navy.withOpacity(0.3),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
+                    color: Colors.black26,
+                    blurRadius: 12,
+                    offset: Offset(0, -4),
                   ),
                 ],
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // === Top Bar ===
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Builder(
-                        builder: (context) => IconButton(
-                          icon: const Icon(Icons.menu, color: white, size: 28),
-                          onPressed: () {
-                            Scaffold.of(context).openDrawer();
-                          },
-                        ),
-                      ),
-                      const Text(
-                        'BitCurious',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: white,
-                        ),
-                      ),
-                      Container(
-                        height: 36,
-                        width: 36,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            image: AssetImage('assets/images/image_sheila.JPG'),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  const SizedBox(height: 12),
 
-                  const SizedBox(height: 26),
-
-                  const Text(
-                    'Hello,',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                  const Text(
-                    'Sheila!',
-                    style: TextStyle(
-                      color: white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.bold,
+                  // Tab label kecil di atas
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildTabChip('Komponen', 0),
+                        _buildTabChip('Artikel', 1),
+                        _buildTabChip('Project Islami', 2),
+                        _buildTabChip('Pinned', 3),
+                      ],
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 12),
+                  const Divider(
+                    height: 1,
+                    thickness: 0.8,
+                  ),
 
-                  // === Indicator dots ===
-                  Row(
-                    children: [
-                      Container(
-                        height: 14,
-                        width: 14,
-                        margin: const EdgeInsets.only(right: 8),
-                        decoration: const BoxDecoration(
-                          color: grey,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Container(
-                        height: 14,
-                        width: 14,
-                        margin: const EdgeInsets.only(right: 8),
-                        decoration: const BoxDecoration(
-                          color: grey,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      Container(
-                        height: 14,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          color: yellow,
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        alignment: Alignment.centerRight,
-                        padding: const EdgeInsets.only(right: 4),
-                        child: Container(
-                          height: 14,
-                          width: 14,
-                          decoration: const BoxDecoration(
-                            color: white,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ),
-                    ],
+                  Expanded(
+                    child: IndexedStack(
+                      index: _selectedIndex,
+                      children: _pages,
+                    ),
                   ),
                 ],
               ),
             ),
-
-            const SizedBox(height: 12),
-
-            // === Category label row ===
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  _CategoryChip(label: 'Controllers'),
-                  _CategoryChip(label: 'Sensors'),
-                  _CategoryChip(label: 'Actuators'),
-                  _CategoryChip(label: 'Connectivity'),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            // ================= GRID KATEGORI =================
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  children: List.generate(categories.length, (index) {
-                    final category = categories[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: category['color'],
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 4,
-                            offset: const Offset(2, 2),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.memory_rounded,
-                            size: 40,
-                            color: Colors.black87,
-                          ),
-                          const SizedBox(height: 10),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              category['name'],
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 12),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 75, 182, 130),
-                              foregroundColor: white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 8,
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (_) => ComponentListPage(
-                                    categoryName: category['name'],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: const Text(
-                              "See Components",
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
+      bottomNavigationBar: _buildBottomNav(),
     );
   }
 
-  // === FUNGSI ITEM SIDEBAR ===
-  Widget _buildDrawerItem({
-    required IconData icon,
-    required String text,
-    bool isActive = false,
-    required VoidCallback onTap,
-  }) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: isActive ? const Color(0xFFEEF2FF) : Colors.transparent,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: isActive
-            ? [
-                BoxShadow(
-                  color: const Color(0xFF0B0C3A).withOpacity(0.15),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                )
-              ]
-            : [],
-      ),
-      child: ListTile(
-        leading: Icon(
-          icon,
-          color: isActive ? const Color(0xFF0B0C3A) : Colors.black54,
-        ),
-        title: Text(
-          text,
-          style: TextStyle(
-            color: isActive ? const Color(0xFF0B0C3A) : Colors.black87,
-            fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+  Widget _buildTabChip(String label, int index) {
+    final bool isSelected = _selectedIndex == index;
+
+    return GestureDetector(
+      onTap: () => _onItemTapped(index),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF0B0C3A) : Colors.transparent,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color:
+                isSelected ? const Color(0xFF0B0C3A) : Colors.grey.shade300,
           ),
         ),
-        hoverColor: const Color(0xFFF4F4F4),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: isSelected ? Colors.white : Colors.grey.shade700,
+          ),
         ),
-        onTap: onTap,
       ),
     );
   }
-}
 
-// Widget chip kategori kecil
-class _CategoryChip extends StatelessWidget {
-  final String label;
-  const _CategoryChip({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: const Color(0xFFE6E6E6),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 12,
-          color: Colors.black87,
-          fontWeight: FontWeight.w500,
+  Widget _buildBottomNav() {
+    return BottomNavigationBar(
+      currentIndex: _selectedIndex,
+      onTap: _onItemTapped,
+      elevation: 10,
+      selectedItemColor: const Color(0xFF0B0C3A),
+      unselectedItemColor: Colors.grey,
+      type: BottomNavigationBarType.fixed,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.memory_rounded),
+          label: 'Komponen',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu_book_rounded),
+          label: 'Artikel',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.bolt_rounded),
+          label: 'Project',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.push_pin_rounded),
+          label: 'Pinned',
+        ),
+      ],
+    );
+  }
+
+  Drawer _buildDrawer() {
+    const Color navy = Color(0xFF0B0C3A);
+
+    return Drawer(
+      child: Column(
+        children: [
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: navy,
+            ),
+            child: Row(
+              children: [
+                const CircleAvatar(
+                  radius: 32,
+                  backgroundImage:
+                      AssetImage('assets/images/image_sheila.JPG'),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Sheila Aziza',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Elektronika & IoT Enthusiast',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.home_rounded),
+            title: const Text('Home'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.newspaper_rounded),
+            title: const Text('Berita Teknologi (API Publik)'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const NewsPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.info_outline_rounded),
+            title: const Text('About Us'),
+            onTap: () {
+              Navigator.pop(context);
+              _showAboutDialog();
+            },
+          ),
+          const Spacer(),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () {
+              Navigator.pop(context);
+              // Implementasi logout jika ada
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showAboutDialog() {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('About BitCurious'),
+        content: const Text(
+          'BitCurious adalah aplikasi pengenalan komponen elektronika dan IoT\n'
+          'serta referensi project bernuansa Islami.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
       ),
     );
   }

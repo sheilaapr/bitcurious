@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 # 📱 BitCurious — Flutter Mobile App
 
 **BitCurious** adalah aplikasi edukatif berbasis Flutter yang memperkenalkan **komponen elektronika dan IoT** secara interaktif.  
@@ -129,3 +130,100 @@ Untuk Memenuhi Tugas Ujian Tengah Semester (UTS)
 ---
 
 > “Teknologi adalah alat, niat baik adalah arah. Dengan keduanya, kita membangun masa depan yang bermanfaat.”
+=======
+# 📱 BitCurious — Aplikasi Mobile Edukasi Elektronika & IoT
+
+**BitCurious** adalah aplikasi edukatif berbasis **Flutter** yang dirancang untuk membantu pengguna mengenal **komponen elektronika dan IoT** secara interaktif, terstruktur, dan tetap bernuansa Islami.  
+
+Aplikasi ini menggabungkan:
+- 📂 **Data lokal (JSON)** untuk komponen & project,
+- 🌐 **API publik NewsAPI** untuk berita teknologi & IoT terkini.
+
+Cocok sebagai:
+- Media belajar komponen elektronika & IoT,
+- Referensi tugas / praktikum,
+- Project UAS Mobile Programming.  
+
+---
+
+## 🚀 Fitur Utama
+
+### 1️⃣ Splash Screen Elegan
+- Halaman pembuka dengan branding **BitCurious**.
+- Memberi transisi lembut sebelum masuk ke Home.
+
+### 2️⃣ Home Page Interaktif
+- **Welcome section**: sapaan personal *“Hello, Sheila!”*.
+- **Search berita**:
+  - Terhubung ke **NewsAPI (API Publik)**.
+  - Pengguna bisa mencari berita teknologi/IoT (mis: `esp32`, `sensor`, `AI`, dll).
+- **Tab & Bottom Navigation**:
+  - `Komponen` → daftar kategori komponen.
+  - `Artikel` → artikel edukatif bernuansa Islami.
+  - `Project Islami` → referensi project IoT islami.
+  - `Pinned` → komponen favorit yang disimpan pengguna.
+
+### 3️⃣ Kategori Komponen (Halaman Komponen)
+- Menampilkan **kategori** berdasarkan key di `components.json`, misalnya:
+  - `Controller & Processing Units`
+  - `Input & Sensing Devices`
+  - `Output & Actuation Devices`
+  - `Connectivity & Power Modules`
+- Tersedia kategori khusus **“All”** untuk melihat semua komponen.
+
+### 4️⃣ List Komponen per Kategori
+- Setelah kategori dipilih, pengguna diarahkan ke halaman **list komponen**:
+  - Menampilkan **nama komponen, harga, deskripsi singkat**, dan gambar.
+  - Data diambil dari `assets/data/components.json`.
+
+### 5️⃣ Detail Komponen
+- Halaman detail menampilkan:
+  - Gambar komponen.
+  - Deskripsi lengkap (dengan efek **Read more / Read less**).
+  - Kategori dan harga.
+  - Tombol **“Add to Pinned / Pinned”** untuk menyimpan atau menghapus dari favorit.
+- Data pinned disimpan secara global melalui repository sederhana.
+
+### 6️⃣ Pinned Components (Favorit)
+- Halaman khusus yang menampilkan **daftar semua komponen yang dipinned** oleh pengguna.
+- Bisa:
+  - Tap item untuk membuka detail lagi.
+  - Hapus dari pinned langsung dari list.
+
+### 7️⃣ Artikel Islami & Edukasi
+- Halaman **Artikel & Edukasi**:
+  - Data berasal dari `assets/data/articles.json`.
+  - Terdapat dialog **“Read More”** untuk membaca isi artikel lebih lengkap.
+  - Artikel bernuansa edukasi & Islami, mendukung konsep teknologi yang bermanfaat.
+
+### 8️⃣ Project References Bernuansa Islami
+- Menggunakan `assets/data/projects.json`.
+- Menampilkan:
+  - Judul project,
+  - Deskripsi singkat,
+  - Dalil ayat / hadits terkait,
+  - Alat & bahan dalam bentuk list.
+- Detail project ditampilkan dalam halaman khusus / dialog yang rapi.
+
+### 9️⃣ Berita Teknologi & IoT (NewsAPI)
+- Menggunakan **API publik NewsAPI**:
+  - Endpoint technology / query kata kunci.
+  - Ditampilkan dalam halaman khusus `NewsPage`.
+- Pengguna bisa:
+  - Mencari berita terkait IoT, AI, elektronik, dsb.
+  - Melihat ringkasan, sumber, tanggal publikasi.
+  - Membuka detail berita dalam dialog dengan gambar (jika tersedia).
+
+---
+
+## 🧠 Sumber Data
+
+### 1. Data Lokal (JSON)
+Semua data lokal disimpan di:
+
+```text
+assets/data/
+  ├── components.json   # Komponen elektronika & IoT (per kategori)
+  ├── projects.json     # Project Islami (judul, deskripsi, dalil, alat_bahan)
+  └── articles.json     # Artikel Islami / edukasi
+>>>>>>> Stashed changes

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bitcurious/services/pinned_repository.dart';
 
 class ComponentDetailPage extends StatefulWidget {
   final String name;
@@ -23,6 +24,23 @@ class ComponentDetailPage extends StatefulWidget {
 class _ComponentDetailPageState extends State<ComponentDetailPage> {
   bool isPinned = false;
   bool isExpanded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set awal: apakah komponen ini sudah ada di pinned?
+    isPinned = PinnedRepository.isPinned(
+      widget.name,
+      widget.categoryName,
+    );
+  }
+
+  // Guard setState: kalau halaman sudah di-pop (dispose), jangan update state lagi
+  @override
+  void setState(VoidCallback fn) {
+    if (!mounted) return;
+    super.setState(fn);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +129,15 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                         textAlign: TextAlign.center,
                       ),
 
+                      const SizedBox(height: 6),
+                      Text(
+                        widget.categoryName,
+                        style: const TextStyle(
+                          fontSize: 13,
+                          color: Colors.black54,
+                        ),
+                      ),
+
                       const SizedBox(height: 14),
 
                       // Deskripsi Komponen + Read More
@@ -188,6 +215,19 @@ class _ComponentDetailPageState extends State<ComponentDetailPage> {
                           setState(() {
                             isPinned = !isPinned;
                           });
+
+                          // Update repository
+                          PinnedRepository.toggle(
+                            PinnedComponent(
+                              name: widget.name,
+                              description: widget.description,
+                              imageUrl: widget.imageUrl,
+                              price: widget.price,
+                              categoryName: widget.categoryName,
+                            ),
+                          );
+
+                          // aman kalau dipanggil saat masih di halaman
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(

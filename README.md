@@ -1,4 +1,4 @@
-<<<<<<< Updated upstream
+sheila cantik
 # 📱 BitCurious — Flutter Mobile App
 
 **BitCurious** adalah aplikasi edukatif berbasis Flutter yang memperkenalkan **komponen elektronika dan IoT** secara interaktif.  

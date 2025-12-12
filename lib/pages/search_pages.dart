@@ -57,8 +57,7 @@ class _SearchPageState extends State<SearchPage> {
 
     try {
       // Ambil semua data dari API
-      final componentsMap =
-          await BitcuriousApiService.fetchComponentsMap();
+      final componentsMap = await BitcuriousApiService.fetchComponentsMap();
       final projects = await BitcuriousApiService.fetchProjects();
       final articles = await BitcuriousApiService.fetchArticles();
 
@@ -67,8 +66,7 @@ class _SearchPageState extends State<SearchPage> {
       componentsMap.forEach((key, value) {
         if (value is List) {
           for (final raw in value) {
-            final item = Map<String, dynamic>.from(
-                raw as Map<String, dynamic>);
+            final item = Map<String, dynamic>.from(raw as Map<String, dynamic>);
             item['category'] = key.toString();
             allComponents.add(item);
           }
@@ -81,23 +79,25 @@ class _SearchPageState extends State<SearchPage> {
         return name.contains(q) || desc.contains(q);
       }).toList();
 
-      final projs = projects.where((p) {
-        final map = p as Map<String, dynamic>;
-        final title =
-            (map['title'] ?? '').toString().toLowerCase();
-        final desc =
-            (map['desc'] ?? '').toString().toLowerCase();
-        return title.contains(q) || desc.contains(q);
-      }).map((e) => Map<String, dynamic>.from(e)).toList();
+      final projs = projects
+          .where((p) {
+            final map = p as Map<String, dynamic>;
+            final title = (map['title'] ?? '').toString().toLowerCase();
+            final desc = (map['desc'] ?? '').toString().toLowerCase();
+            return title.contains(q) || desc.contains(q);
+          })
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
 
-      final arts = articles.where((a) {
-        final map = a as Map<String, dynamic>;
-        final title =
-            (map['title'] ?? '').toString().toLowerCase();
-        final desc =
-            (map['desc'] ?? '').toString().toLowerCase();
-        return title.contains(q) || desc.contains(q);
-      }).map((e) => Map<String, dynamic>.from(e)).toList();
+      final arts = articles
+          .where((a) {
+            final map = a as Map<String, dynamic>;
+            final title = (map['title'] ?? '').toString().toLowerCase();
+            final desc = (map['desc'] ?? '').toString().toLowerCase();
+            return title.contains(q) || desc.contains(q);
+          })
+          .map((e) => Map<String, dynamic>.from(e))
+          .toList();
 
       setState(() {
         _componentResults = comps;
@@ -115,8 +115,13 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> _openArticleUrl(String url) async {
     if (url.isEmpty) return;
+
     final uri = Uri.tryParse(url);
     if (uri == null) return;
+
+    // Minimal validasi skema (biar gak error kalau string bukan url)
+    if (uri.scheme != 'http' && uri.scheme != 'https') return;
+
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
@@ -157,8 +162,7 @@ class _SearchPageState extends State<SearchPage> {
                     child: Text(
                       _error!,
                       textAlign: TextAlign.center,
-                      style:
-                          const TextStyle(color: Colors.redAccent),
+                      style: const TextStyle(color: Colors.redAccent),
                     ),
                   ),
                 )
@@ -221,11 +225,14 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildComponentResultCard(Map<String, dynamic> item) {
-    final String name = item['name'] ?? 'Tanpa nama';
-    final String desc = item['desc'] ?? '';
-    final String imageUrl = item['image'] ?? '';
+    final String name = (item['name'] ?? 'Tanpa nama').toString();
+    final String desc = (item['desc'] ?? '').toString();
+    final String imageUrl = (item['image'] ?? '').toString();
     final double? price =
         (item['price'] is num) ? (item['price'] as num).toDouble() : null;
+
+    final bool isNetwork = imageUrl.startsWith('http://') ||
+        imageUrl.startsWith('https://');
 
     return GestureDetector(
       onTap: () {
@@ -262,20 +269,26 @@ class _SearchPageState extends State<SearchPage> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(14),
                 child: imageUrl.isNotEmpty
-                    ? Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) =>
-                            const Icon(Icons.memory_rounded),
-                      )
+                    ? (isNetwork
+                        ? Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                const Icon(Icons.memory_rounded),
+                          )
+                        : Image.asset(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                const Icon(Icons.memory_rounded),
+                          ))
                     : const Icon(Icons.memory_rounded),
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     name,
@@ -319,8 +332,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildProjectResultCard(Map<String, dynamic> item) {
-    final String title = item['title'] ?? 'Tanpa judul';
-    final String desc = item['desc'] ?? '';
+    final String title = (item['title'] ?? 'Tanpa judul').toString();
+    final String desc = (item['desc'] ?? '').toString();
 
     return GestureDetector(
       onTap: () {
@@ -346,8 +359,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
@@ -377,10 +389,12 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   Widget _buildArticleResultCard(Map<String, dynamic> item) {
-    final String title = item['title'] ?? 'Tanpa judul';
-    final String desc = item['desc'] ?? '';
-    final String source = item['source'] ?? '';
-    final String url = item['source'] ?? ''; // di JSON kamu 'source' = link
+    final String title = (item['title'] ?? 'Tanpa judul').toString();
+    final String desc = (item['desc'] ?? '').toString();
+    final String source = (item['source'] ?? '').toString();
+
+    // Prioritas: field 'url' (kalau ada). Kalau JSON kamu nyimpen link di 'source', tetap bisa fallback.
+    final String url = (item['url'] ?? item['source'] ?? '').toString();
 
     return GestureDetector(
       onTap: () => _openArticleUrl(url),
@@ -399,8 +413,7 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (source.isNotEmpty)
               Text(

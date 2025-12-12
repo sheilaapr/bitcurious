@@ -5,7 +5,7 @@
 Aplikasi ini menggabungkan dua sumber data utama:
 
 - 📂 **Data lokal (JSON)** → komponen elektronika/IoT, artikel edukatif, dan referensi project Islami  
-- 🌐 **API publik NewsAPI** → berita teknologi & IoT terkini yang diambil langsung dari internet  
+- 🌐 **API publik (NewsAPI)** → berita teknologi & IoT terkini yang diambil langsung dari internet  
 
 Proyek ini dikembangkan sebagai **tugas Ujian Akhir Semester (UAS) Praktikum Pemrograman Mobile**.
 
@@ -13,86 +13,113 @@ Proyek ini dikembangkan sebagai **tugas Ujian Akhir Semester (UAS) Praktikum Pem
 
 ## 🚀 Fitur Utama
 
-### 1️⃣ Splash Screen Elegan
+### 1️⃣ Splash Screen
 - Halaman pembuka dengan branding **BitCurious**
-- Memberikan transisi lembut sebelum masuk ke halaman utama (Home)
+- Memberikan transisi sebelum masuk ke halaman utama (Home)
 
 ---
 
-### 2️⃣ Home Page Interaktif
-- **Welcome section** dengan sapaan personal, contoh: `Hello, Sheila!`
+### 2️⃣ Home Page
+- Welcome section dengan sapaan personal (contoh: `Hello, Sheila!`)
 - **Search bar berita**:
-  - Terhubung ke **NewsAPI (API publik)**
-  - Bisa mencari berita teknologi/IoT (mis: `esp32`, `sensor`, `AI`, dll)
-  - Mengarahkan ke halaman **Berita Teknologi & IoT**
-- **Tab kecil di dalam konten putih**:
+  - Terhubung ke **NewsAPI**
+  - Mendukung pencarian berita teknologi & IoT (`esp32`, `sensor`, `AI`, dll)
+- Tab konten:
   - `Komponen`
   - `Artikel`
   - `Project Islami`
-- **Bottom Navigation Bar (4 menu utama)**:
-  - 🧩 `Komponen` → daftar kategori & list komponen  
-  - 📚 `Artikel` → artikel edukatif dan Islami  
-  - ⚡ `Project` → project references bernuansa Islami  
-  - 📌 `Pinned` → daftar komponen favorit yang sudah disimpan pengguna  
+- **Bottom Navigation Bar**:
+  - 🧩 Komponen
+  - 📚 Artikel
+  - ⚡ Project
+  - 📌 Pinned
 
 - **Drawer (Sidebar)**:
-  - Profil singkat pengguna
-  - Menu **Home**
-  - Menu **Berita Teknologi (API Publik NewsAPI)**
-  - Menu **About Us**
-  - Tombol **Logout** (placeholder)
+  - Profil pengguna
+  - Home
+  - Berita Teknologi (API Publik)
+  - About Us
+  - Logout (placeholder)
 
 ---
 
-### 3️⃣ Kategori Komponen (Components Categories Page)
-- Menampilkan kategori komponen berdasarkan key di `components.json`, seperti:
-  - `Controller & Processing Units`
-  - `Input & Sensing Devices`
-  - `Output & Actuation Devices`
-  - `Connectivity & Power Modules`
-- Tersedia kategori khusus **“All”** untuk menampilkan semua komponen
+### 3️⃣ Kategori Komponen
+- Menampilkan kategori dari `components.json`, seperti:
+  - Controller & Processing Units
+  - Input & Sensing Devices
+  - Output & Actuation Devices
+  - Connectivity & Power Modules
+- Tersedia kategori **All** untuk menampilkan semua komponen
 
 ---
 
-### 4️⃣ List Komponen per Kategori
-- Setelah kategori dipilih, pengguna diarahkan ke halaman list komponen:
-  - Menampilkan **gambar, nama, harga, dan deskripsi singkat**
-  - Data diambil dari `assets/data/components.json`
-- Tap salah satu komponen → masuk ke halaman **detail komponen**
+### 4️⃣ List Komponen
+- Data diambil dari `assets/data/components.json`
+- Menampilkan:
+  - Gambar
+  - Nama komponen
+  - Harga
+  - Deskripsi singkat
+- Tap item → halaman detail komponen
 
 ---
 
-### 5️⃣ Detail Komponen + Fitur Pinned
-- Halaman detail komponen memuat:
-  - Gambar komponen resolusi lokal
+### 5️⃣ Detail Komponen & Pinned
+- Informasi detail:
+  - Gambar komponen
   - Nama & kategori
-  - Harga (format rupiah)
-  - Deskripsi lengkap dengan efek **Read more / Read less**
-- Tombol **“Add to Pinned / Pinned”**:
-  - Menyimpan komponen ke daftar favorit menggunakan `PinnedRepository`
-  - Menampilkan `SnackBar` ketika komponen ditambahkan atau dihapus dari pinned
-- Status pinned tersinkron dengan:
-  - Tombol di halaman detail
-  - List di halaman **Pinned Components**
-  - Menu **Pinned** di Bottom Navigation
+  - Harga (format Rupiah)
+  - Deskripsi lengkap (Read more / Read less)
+- Fitur **Pinned**:
+  - Tambah/hapus komponen favorit
+  - Menggunakan `PinnedRepository`
+  - Notifikasi `SnackBar`
 
 ---
 
-### 6️⃣ Pinned Components Page (akses dari Bottom Nav & Drawer)
-- Halaman khusus untuk melihat semua komponen yang sudah di-pin
+### 6️⃣ Pinned Components Page
+- Menampilkan semua komponen yang sudah di-pin
+- Akses dari:
+  - Bottom Navigation
+  - Drawer
 - Fitur:
-  - Tap item → membuka kembali detail komponen (dengan tombol pinned sinkron)
-  - Tombol pin merah di list → menghapus komponen dari pinned
-- Data disimpan secara global di `PinnedRepository` sehingga:
-  - Pinned tetap konsisten meskipun pengguna berpindah halaman
-  - Halaman ini bisa dibuka dari:
-    - Bottom Navigation (`Pinned`)
-    - Menu `Pinned Components` (jika ditambahkan di drawer)
+  - Tap item → detail komponen
+  - Unpin langsung dari list
+- Data pinned bersifat global dan konsisten antar halaman
 
 ---
 
 ### 7️⃣ Artikel Islami & Edukasi
 - Menggunakan data lokal dari:
+  - `assets/data/articles.json`
+- Menyajikan artikel edukatif dan bernuansa Islami
 
-  ```text
-  assets/data/articles.json
+---
+
+### 8️⃣ Project Islami
+- Referensi project IoT dan elektronika bernuansa Islami
+- Data lokal berbasis JSON
+- Ditujukan sebagai inspirasi pembelajaran dan pengembangan
+
+---
+
+## 🛠 Teknologi yang Digunakan
+- **Flutter**
+- **Dart**
+- **REST API (NewsAPI)**
+- **Local JSON Assets**
+- **Material Design**
+
+---
+
+## 👩‍💻 Developer
+**Sheila Apriliani Putri**  
+Praktikum Pemrograman Mobile — UAS
+
+---
+
+## 📌 Catatan
+- Aplikasi ini bersifat edukatif
+- Beberapa fitur seperti logout masih berupa placeholder
+- Koneksi internet diperlukan untuk fitur berita (API)
+

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'pages/splash_pages.dart';
+import 'services/pinned_repository.dart';
 
-void main() {
-  // Pastikan binding sudah siap sebelum set error handler
+Future<void> main() async {
+  // Wajib dipanggil dulu kalau mau pakai async sebelum runApp
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Ganti tampilan default layar merah error Flutter
+  // Load data pinned dari SharedPreferences
+  await PinnedRepository.init();
+
+  // Error widget custom (supaya nggak muncul red screen jelek)
   ErrorWidget.builder = (FlutterErrorDetails details) {
     // Tetap log ke console supaya kalau mau dicek masih kelihatan
     debugPrint('Flutter error: ${details.exceptionAsString()}');
     debugPrintStack(stackTrace: details.stack);
 
-    // Jangan tampilkan apa-apa di UI (no kilat merah/putih),
-    // cukup widget kosong.
+    // Di UI, cukup widget kosong (bisa kamu ganti dengan placeholder lain)
     return const SizedBox.shrink();
   };
 

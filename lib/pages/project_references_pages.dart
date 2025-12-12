@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:bitcurious/services/bitcurious_api_service.dart';
 import 'package:bitcurious/pages/project_detail_page.dart';
 
 class ProjectReferencesPage extends StatefulWidget {
@@ -21,7 +20,6 @@ class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
     _loadProjects();
   }
 
-  /// Guard setState supaya tidak dipanggil setelah halaman di-pop (dispose)
   @override
   void setState(VoidCallback fn) {
     if (!mounted) return;
@@ -30,26 +28,16 @@ class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
 
   Future<void> _loadProjects() async {
     try {
-      final jsonStr =
-          await rootBundle.loadString('assets/data/projects.json');
-      final decoded = json.decode(jsonStr);
-
-      if (decoded is List) {
-        setState(() {
-          projects = decoded;
-          _isLoading = false;
-          _error = null;
-        });
-      } else {
-        setState(() {
-          _isLoading = false;
-          _error = 'Format projects.json tidak sesuai (harus List).';
-        });
-      }
+      final decoded = await BitcuriousApiService.fetchProjects();
+      setState(() {
+        projects = decoded;
+        _isLoading = false;
+        _error = null;
+      });
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _error = 'Gagal memuat project: $e';
+        _error = 'Gagal memuat project dari API: $e';
       });
     }
   }
@@ -57,44 +45,7 @@ class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
   @override
   Widget build(BuildContext context) {
     const Color navy = Color(0xFF0B0C3A);
-    const Color white = Colors.white;
 
-    return Scaffold(
-      backgroundColor: navy,
-      appBar: AppBar(
-        backgroundColor: navy,
-        elevation: 0,
-        foregroundColor: white,
-        title: const Text(
-          'Project Islami',
-          style: TextStyle(
-            color: white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          color: white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(24),
-            topRight: Radius.circular(24),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              blurRadius: 12,
-              offset: Offset(0, -4),
-            ),
-          ],
-        ),
-        child: _buildBody(),
-      ),
-    );
-  }
-
-  Widget _buildBody() {
     if (_isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -105,8 +56,8 @@ class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             _error!,
-            textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.redAccent),
+            textAlign: TextAlign.center,
           ),
         ),
       );
@@ -114,62 +65,179 @@ class _ProjectReferencesPageState extends State<ProjectReferencesPage> {
 
     if (projects.isEmpty) {
       return const Center(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Belum ada data project.\nCek kembali projects.json.',
-            textAlign: TextAlign.center,
-          ),
+        child: Text(
+          'Belum ada referensi project.',
+          style: TextStyle(color: Colors.grey),
         ),
       );
     }
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: projects.length,
-      itemBuilder: (context, index) {
-        final proj = projects[index] as Map<String, dynamic>;
-        return Container(
-          margin: const EdgeInsets.only(bottom: 12),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(16),
-            color: const Color(0xFFF5F5FF),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x22000000),
-                blurRadius: 8,
-                offset: Offset(0, 4),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF0B0C3A),
+            Color(0xFF000814),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 14),
+              child: Row(
+                children: const [
+                  Icon(Icons.bolt_rounded, color: Colors.white),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Project IoT Bernuansa Islami',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-          child: ListTile(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ProjectDetailPage(project: proj),
+            ),
+
+            // Body
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFF9FAFF),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(26),
+                    topRight: Radius.circular(26),
+                  ),
                 ),
-              );
-            },
-            leading: const Icon(
-              Icons.bolt_rounded,
-              color: Color(0xFF0B0C3A),
-            ),
-            title: Text(
-              proj['title'] ?? 'Tanpa Judul',
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 15,
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                  itemCount: projects.length,
+                  itemBuilder: (context, index) {
+                    final item = projects[index] as Map<String, dynamic>;
+                    return _buildProjectCard(item, navy);
+                  },
+                ),
               ),
             ),
-            subtitle: Text(
-              proj['short_desc'] ?? '',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProjectCard(Map<String, dynamic> item, Color navy) {
+    final title = (item['title'] ?? 'Tanpa judul').toString();
+    final desc = (item['desc'] ?? '').toString();
+    final dalil = (item['dalil'] ?? '').toString();
+    final List<String> tools = (item['tools'] is List)
+        ? (item['tools'] as List).map((e) => e.toString()).toList()
+        : <String>[];
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ProjectDetailPage(project: item),
           ),
         );
       },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 6),
+
+            // Desc
+            if (desc.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Text(
+                  desc,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.black87,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+
+            // Dalil
+            if (dalil.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Text(
+                  dalil,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: Colors.black87,
+                    fontStyle: FontStyle.italic,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+
+            // Tools
+            if (tools.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0),
+                child: Wrap(
+                  spacing: 6,
+                  runSpacing: -4,
+                  children: tools.take(4).map((t) {
+                    return Chip(
+                      label: Text(
+                        t,
+                        style: const TextStyle(fontSize: 10),
+                      ),
+                      backgroundColor: const Color(0xFFE3E7FF),
+                      materialTapTargetSize:
+                          MaterialTapTargetSize.shrinkWrap,
+                      visualDensity: VisualDensity.compact,
+                    );
+                  }).toList(),
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }

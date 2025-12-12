@@ -1,5 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:bitcurious/services/bitcurious_api_service.dart';
 
 class ArticlesPage extends StatefulWidget {
   const ArticlesPage({super.key});
@@ -13,7 +14,12 @@ class _ArticlesPageState extends State<ArticlesPage> {
   bool _isLoading = true;
   String? _error;
 
-  /// Guard setState supaya tidak dipanggil setelah halaman di-pop (dispose)
+  @override
+  void initState() {
+    super.initState();
+    _loadArticles();
+  }
+
   @override
   void setState(VoidCallback fn) {
     if (!mounted) return;
@@ -22,11 +28,7 @@ class _ArticlesPageState extends State<ArticlesPage> {
 
   Future<void> _loadArticles() async {
     try {
-      final data = await DefaultAssetBundle.of(context)
-          .loadString('assets/data/articles.json');
-
-      final decoded = json.decode(data);
-
+      final decoded = await BitcuriousApiService.fetchArticles();
       setState(() {
         articles = decoded;
         _error = null;
@@ -34,152 +36,200 @@ class _ArticlesPageState extends State<ArticlesPage> {
       });
     } catch (e) {
       setState(() {
-        _error = 'Gagal memuat artikel: $e';
+        _error = 'Gagal memuat artikel dari API: $e';
         _isLoading = false;
       });
     }
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _loadArticles();
-  }
-
-  void _showArticleDetails(BuildContext context, Map<String, dynamic> article) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        title: Text(
-          article['title'],
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF0B0C3A),
-          ),
-        ),
-        content: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                article['desc'],
-                style: const TextStyle(fontSize: 14, color: Colors.black87),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                "Sumber:",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                article['source'],
-                style: const TextStyle(
-                  color: Colors.blueAccent,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 13,
-                ),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          TextButton(
-            child: const Text(
-              "Tutup",
-              style: TextStyle(color: Color(0xFF0B0C3A)),
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
-    );
+  Future<void> _openUrl(String url) async {
+    if (url.isEmpty) return;
+    final uri = Uri.tryParse(url);
+    if (uri == null) return;
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final body = () {
-      if (_isLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }
+    const Color navy = Color(0xFF0B0C3A);
 
-      if (_error != null) {
-        return Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              _error!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.redAccent),
-            ),
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (_error != null) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(
+            _error!,
+            style: const TextStyle(color: Colors.redAccent),
+            textAlign: TextAlign.center,
           ),
-        );
-      }
-
-      if (articles.isEmpty) {
-        return const Center(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Belum ada artikel.\nSilakan cek kembali nanti.',
-              textAlign: TextAlign.center,
-            ),
-          ),
-        );
-      }
-
-      return ListView.builder(
-        itemCount: articles.length,
-        itemBuilder: (context, index) {
-          final a = articles[index];
-          return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            elevation: 3,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: ListTile(
-              leading: const Icon(
-                Icons.article,
-                color: Colors.blueAccent,
-                size: 28,
-              ),
-              title: Text(
-                a['title'],
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              subtitle: Text(
-                a['source'],
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.black54),
-              ),
-              trailing: TextButton(
-                onPressed: () => _showArticleDetails(context, a),
-                child: const Text(
-                  "Read More",
-                  style: TextStyle(color: Color(0xFF0B0C3A)),
-                ),
-              ),
-            ),
-          );
-        },
+        ),
       );
-    }();
+    }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Artikel & Edukasi'),
-        backgroundColor: const Color(0xFF0B0C3A),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+    if (articles.isEmpty) {
+      return const Center(
+        child: Text(
+          'Belum ada artikel.',
+          style: TextStyle(color: Colors.grey),
+        ),
+      );
+    }
+
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xFF0B0C3A),
+            Color(0xFF000814),
+          ],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
         ),
       ),
-      body: body,
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          children: [
+            // Header
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
+              child: Row(
+                children: const [
+                  Icon(Icons.menu_book_rounded, color: Colors.white),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      'Artikel IoT & Elektronika',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Body
+            Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFF9FAFF),
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(26),
+                    topRight: Radius.circular(26),
+                  ),
+                ),
+                child: ListView.builder(
+                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 24),
+                  itemCount: articles.length,
+                  itemBuilder: (context, index) {
+                    final item = articles[index] as Map<String, dynamic>;
+                    return _buildArticleCard(item, navy);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildArticleCard(Map<String, dynamic> item, Color navy) {
+    final title = (item['title'] ?? 'Tanpa judul').toString();
+    final url = (item['source'] ?? '').toString(); // source berisi URL
+    final desc = (item['desc'] ?? '').toString();
+
+    // tampilkan host / domain sebagai sumber
+    String sourceLabel = url;
+    final uri = Uri.tryParse(url);
+    if (uri != null && uri.host.isNotEmpty) {
+      sourceLabel = uri.host;
+    }
+
+    return GestureDetector(
+      onTap: () => _openUrl(url),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sumber
+            if (sourceLabel.isNotEmpty)
+              Text(
+                sourceLabel,
+                style: TextStyle(
+                  color: navy,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            if (sourceLabel.isNotEmpty) const SizedBox(height: 6),
+
+            // Judul
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 6),
+
+            // Deskripsi
+            if (desc.isNotEmpty)
+              Text(
+                desc,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Colors.black87,
+                ),
+              ),
+
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Text(
+                  url.isEmpty ? 'Tidak ada link' : 'Buka artikel',
+                  style: TextStyle(
+                    color: url.isEmpty ? Colors.grey : navy,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12,
+                  ),
+                ),
+                const SizedBox(width: 4),
+                if (url.isNotEmpty)
+                  Icon(Icons.open_in_new_rounded,
+                      size: 16, color: navy),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

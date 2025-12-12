@@ -10,8 +10,7 @@ class PinnedComponentsPage extends StatefulWidget {
 }
 
 class _PinnedComponentsPageState extends State<PinnedComponentsPage> {
-  /// Guard setState supaya tidak error kalau dipanggil
-  /// setelah halaman di-pop (dispose).
+  /// Guard setState supaya aman kalau dipanggil setelah dispose
   @override
   void setState(VoidCallback fn) {
     if (!mounted) return;
@@ -22,6 +21,28 @@ class _PinnedComponentsPageState extends State<PinnedComponentsPage> {
     setState(() {
       PinnedRepository.remove(component.name, component.categoryName);
     });
+  }
+
+  // Bikin map komponen yang cocok dengan struktur dari API,
+  // supaya bisa dipakai di ComponentDetailPage.
+  Map<String, dynamic> _buildComponentMapFromPinned(PinnedComponent item) {
+    return {
+      'name': item.name,
+      'desc': item.description,
+      'image': item.imageUrl,
+      'price': item.price,
+      'category': item.categoryName,
+      // kalau nanti mau nambah field lain, tinggal taruh di sini
+    };
+  }
+
+  // Pilih provider gambar: kalau URL http/https → NetworkImage,
+  // kalau bukan → dianggap path asset.
+  ImageProvider _buildImageProvider(String imageUrl) {
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+      return NetworkImage(imageUrl);
+    }
+    return AssetImage(imageUrl);
   }
 
   @override
@@ -97,11 +118,8 @@ class _PinnedComponentsPageState extends State<PinnedComponentsPage> {
                           context,
                           MaterialPageRoute(
                             builder: (_) => ComponentDetailPage(
-                              name: item.name,
-                              description: item.description,
-                              imageUrl: item.imageUrl,
-                              price: item.price,
-                              categoryName: item.categoryName,
+                              component:
+                                  _buildComponentMapFromPinned(item),
                             ),
                           ),
                         ).then((_) {
@@ -116,7 +134,7 @@ class _PinnedComponentsPageState extends State<PinnedComponentsPage> {
                           borderRadius: BorderRadius.circular(12),
                           color: Colors.grey[300],
                           image: DecorationImage(
-                            image: AssetImage(item.imageUrl),
+                            image: _buildImageProvider(item.imageUrl),
                             fit: BoxFit.cover,
                           ),
                         ),

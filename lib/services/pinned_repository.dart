@@ -1,4 +1,5 @@
-// lib/services/pinned_repository.dart
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PinnedComponent {
   final String name;
@@ -14,36 +15,90 @@ class PinnedComponent {
     required this.price,
     required this.categoryName,
   });
+
+  // ====== JSON Serialization ======
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'description': description,
+      'imageUrl': imageUrl,
+      'price': price,
+      'categoryName': categoryName,
+    };
+  }
+
+  factory PinnedComponent.fromJson(Map<String, dynamic> json) {
+    return PinnedComponent(
+      name: (json['name'] ?? '').toString(),
+      description: (json['description'] ?? '').toString(),
+      imageUrl: (json['imageUrl'] ?? '').toString(),
+      price: (json['price'] is num)
+          ? (json['price'] as num).toDouble()
+          : 0.0,
+      categoryName: (json['categoryName'] ?? '').toString(),
+    );
+  }
 }
 
 class PinnedRepository {
-  static final List<PinnedComponent> _items = [];
+  static const String _storageKey = 'bitcurious_pinned_components';
 
-  static List<PinnedComponent> get items => List.unmodifiable(_items);
+  // List yang dipakai UI
+  static final List<PinnedComponent> items = [];
 
-  static bool isPinned(String name, String categoryName) {
-    return _items.any(
-      (c) => c.name == name && c.categoryName == categoryName,
-    );
+  // Panggil sekali saat app start (di main.dart) untuk load data dari storage
+  static Future<void> init() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString(_storageKey);
+
+    if (raw == null || raw.isEmpty) return;
+
+    final List<dynamic> list = jsonDecode(raw) as List<dynamic>;
+
+    items
+      ..clear()
+      ..addAll(
+        list
+            .whereType<Map<String, dynamic>>()
+            .map((e) => PinnedComponent.fromJson(e)),
+      );
   }
 
+  static Future<void> _save() async {
+    final prefs = await SharedPreferences.getInstance();
+    final encoded = jsonEncode(
+      items.map((c) => c.toJson()).toList(),
+    );
+    await prefs.setString(_storageKey, encoded);
+  }
+
+  // Tambah pinned (hindari duplikat)
   static void add(PinnedComponent component) {
-    if (!isPinned(component.name, component.categoryName)) {
-      _items.add(component);
+    final exists = items.any(
+      (c) =>
+          c.name == component.name &&
+          c.categoryName == component.categoryName,
+    );
+
+    if (!exists) {
+      items.add(component);
+      _save(); // simpan ke SharedPreferences
     }
   }
 
+  // Hapus pinned
   static void remove(String name, String categoryName) {
-    _items.removeWhere(
+    items.removeWhere(
       (c) => c.name == name && c.categoryName == categoryName,
     );
+    _save();
   }
 
-  static void toggle(PinnedComponent component) {
-    if (isPinned(component.name, component.categoryName)) {
-      remove(component.name, component.categoryName);
-    } else {
-      add(component);
-    }
+  /// Hapus semua pinned (kalau suatu saat perlu)
+  static Future<void> clearAll() async {
+    items.clear();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_storageKey);
   }
 }

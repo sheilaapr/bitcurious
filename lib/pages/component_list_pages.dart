@@ -1,13 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:bitcurious/pages/component_detail_pages.dart';
+import 'package:bitcurious/services/bitcurious_api_service.dart';
 
 class ComponentListPage extends StatefulWidget {
-  /// Kalau "All"  => gabungkan semua kategori.
-  /// Kalau nama lain (mis. "Controller & Processing Units")
-  /// => hanya kategori itu saja.
-  final String categoryName;
+  final String categoryName; // "All" atau nama kategori
 
   const ComponentListPage({
     super.key,
@@ -19,54 +15,41 @@ class ComponentListPage extends StatefulWidget {
 }
 
 class _ComponentListPageState extends State<ComponentListPage> {
-  List<dynamic> components = [];
+  List<Map<String, dynamic>> components = [];
   bool _isLoading = true;
   String? _errorMessage;
 
   @override
   void initState() {
     super.initState();
-    loadComponents();
+    _loadComponents();
   }
-
-  // Guard setState supaya aman kalau halaman sudah di-pop
-  @override
+  
+    @override
   void setState(VoidCallback fn) {
     if (!mounted) return;
     super.setState(fn);
   }
 
-  Future<void> loadComponents() async {
+  Future<void> _loadComponents() async {
     try {
-      final String response =
-          await rootBundle.loadString('assets/data/components.json');
-      final data = json.decode(response);
+      final Map<String, dynamic> data =
+          await BitcuriousApiService.fetchComponentsMap();
 
-      if (data is! Map<String, dynamic>) {
-        setState(() {
-          _isLoading = false;
-          _errorMessage = 'Format components.json tidak sesuai (bukan Map).';
-        });
-        return;
-      }
-
-      List<dynamic> loaded = [];
+      List<Map<String, dynamic>> loaded = [];
 
       if (widget.categoryName == 'All') {
-        // ====== MODE ALL: gabungkan semua list komponen ======
+        // menggabungkan semua kategori
         data.forEach((key, value) {
           if (value is List) {
-            loaded.addAll(value);
+            loaded.addAll(value.cast<Map<String, dynamic>>());
           }
         });
       } else {
-        // ====== MODE KATEGORI TUNGGAL ======
-        final target = widget.categoryName.toLowerCase().trim();
+                final target = widget.categoryName.toLowerCase().trim();
 
         List<dynamic>? found;
-
-        // Cari key yang cocok dengan nama kategori (lebih toleran)
-        data.forEach((key, value) {
+               data.forEach((key, value) {
           final keyStr = key.toString().toLowerCase().trim();
           if (keyStr == target && value is List) {
             found = value;
@@ -74,10 +57,10 @@ class _ComponentListPageState extends State<ComponentListPage> {
         });
 
         if (found != null) {
-          loaded = found!;
+          loaded = found!.cast<Map<String, dynamic>>();
         } else {
           _errorMessage =
-              'Kategori "${widget.categoryName}" tidak ditemukan di components.json.';
+              'Kategori "${widget.categoryName}" tidak ditemukan di data API.';
         }
       }
 
@@ -88,10 +71,9 @@ class _ComponentListPageState extends State<ComponentListPage> {
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _errorMessage = 'Gagal memuat komponen: $e';
+        _errorMessage = 'Gagal memuat komponen dari API: $e';
       });
-
-      // opsional: tampilkan snackbar kalau halaman masih aktif
+      
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Gagal memuat komponen: $e')),
@@ -100,8 +82,7 @@ class _ComponentListPageState extends State<ComponentListPage> {
     }
   }
 
-  /// Ambil satu kalimat pertama dari deskripsi
-  String getShortDesc(String desc) {
+  String _shortDesc(String desc) {
     final sentences = desc.split('.');
     if (sentences.isNotEmpty && sentences.first.trim().isNotEmpty) {
       return '${sentences.first.trim()}.';
@@ -123,7 +104,7 @@ class _ComponentListPageState extends State<ComponentListPage> {
       backgroundColor: white,
       appBar: AppBar(
         backgroundColor: navy,
-        foregroundColor: white, // judul & ikon putih
+        foregroundColor: white,
         elevation: 0,
         title: Text(
           title,
@@ -155,113 +136,126 @@ class _ComponentListPageState extends State<ComponentListPage> {
     if (components.isEmpty) {
       return const Center(
         child: Text(
-          'Tidak ada komponen ditemukan.',
-          style: TextStyle(fontSize: 14),
+          'Tidak ada komponen pada kategori ini.',
+          style: TextStyle(color: Colors.grey),
         ),
       );
     }
 
-    return ListView.builder(
-      padding: const EdgeInsets.all(16),
-      itemCount: components.length,
-      itemBuilder: (context, index) {
-        final item = components[index] as Map<String, dynamic>;
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ComponentDetailPage(
-                  name: item['name'],
-                  description: item['desc'],
-                  imageUrl: item['image'],
-                  price: (item['price'] as num).toDouble(),
-                  categoryName: widget.categoryName == 'All'
-                      ? 'Komponen'
-                      : widget.categoryName,
-                ),
-              ),
-            );
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: grey,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 5,
-                  offset: const Offset(2, 2),
-                ),
-              ],
-            ),
-            child: Row(
-              children: [
-                // Gambar
-                Container(
-                  height: 80,
-                  width: 80,
-                  margin: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    image: DecorationImage(
-                      image: AssetImage(item['image']),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+    return Container(
+      color: grey,
+      child: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: components.length,
+        itemBuilder: (context, index) {
+          final item = components[index];
+          return _buildComponentCard(item, navy);
+        },
+      ),
+    );
+  }
 
-                // Info komponen
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 12,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item['name'],
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                            color: Color(0xFF0B0C3A),
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          getShortDesc(item['desc']),
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.black87,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          "Rp ${item['price']}",
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.green,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Icon(Icons.chevron_right_rounded, color: navy),
-                const SizedBox(width: 12),
-              ],
-            ),
+  Widget _buildComponentCard(Map<String, dynamic> item, Color navy) {
+    final String name = item['name'] ?? 'Tanpa nama';
+    final String desc = item['desc'] ?? '';
+    final double? price =
+        (item['price'] is num) ? (item['price'] as num).toDouble() : null;
+    final String imageUrl = item['image'] ?? '';
+
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ComponentDetailPage(component: item),
           ),
         );
       },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            // Gambar komponen dari URL
+            Container(
+              width: 70,
+              height: 70,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: imageUrl.isNotEmpty
+                    ? Image.network(
+                        imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.memory_rounded),
+                      )
+                    : const Icon(Icons.memory_rounded),
+              ),
+            ),
+            const SizedBox(width: 12),
+
+            // Info komponen
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 4.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    if (desc.isNotEmpty)
+                      Text(
+                        _shortDesc(desc),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey.shade700,
+                          fontSize: 12,
+                        ),
+                      ),
+                    if (price != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        'Rp ${price.toStringAsFixed(0)}',
+                        style: const TextStyle(
+                          color: Color(0xFF0B0C3A),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(width: 6),
+            Icon(Icons.chevron_right_rounded, color: navy),
+          ],
+        ),
+      ),
     );
   }
 }

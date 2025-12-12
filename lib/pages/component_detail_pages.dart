@@ -2,19 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:bitcurious/services/pinned_repository.dart';
 
 class ComponentDetailPage extends StatefulWidget {
-  final String name;
-  final String description;
-  final String imageUrl;
-  final double price;
-  final String categoryName;
+  final Map<String, dynamic> component;
 
   const ComponentDetailPage({
     super.key,
-    required this.name,
-    required this.description,
-    required this.imageUrl,
-    required this.price,
-    required this.categoryName,
+    required this.component,
   });
 
   @override
@@ -22,253 +14,397 @@ class ComponentDetailPage extends StatefulWidget {
 }
 
 class _ComponentDetailPageState extends State<ComponentDetailPage> {
-  bool isPinned = false;
-  bool isExpanded = false;
+  bool _isDescExpanded = false;
+  bool _isPinned = false;
 
   @override
   void initState() {
     super.initState();
-    // Set awal: apakah komponen ini sudah ada di pinned?
-    isPinned = PinnedRepository.isPinned(
-      widget.name,
-      widget.categoryName,
-    );
+    _checkPinned();
   }
-
-  // Guard setState: kalau halaman sudah di-pop (dispose), jangan update state lagi
+  
   @override
   void setState(VoidCallback fn) {
     if (!mounted) return;
     super.setState(fn);
   }
 
+  void _checkPinned() {
+    final name = widget.component['name']?.toString() ?? '';
+    final category = widget.component['category']?.toString() ?? '';
+
+    _isPinned = PinnedRepository.items.any(
+      (c) => c.name == name && c.categoryName == category,
+    );
+  }
+
+  void _togglePinned() {
+    final name = widget.component['name']?.toString() ?? '';
+    final desc = widget.component['desc']?.toString() ?? '';
+    final imageUrl = widget.component['image']?.toString() ?? '';
+    final category = widget.component['category']?.toString() ?? '';
+    final double price = (widget.component['price'] is num)
+        ? (widget.component['price'] as num).toDouble()
+        : 0.0;
+
+    if (!_isPinned) {
+      // Tambah ke pinned
+      final pinned = PinnedComponent(
+        name: name,
+        description: desc,
+        imageUrl: imageUrl,
+        price: price,
+        categoryName: category,
+      );
+      PinnedRepository.add(pinned);
+
+      setState(() {
+        _isPinned = true;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Berhasil menambahkan "$name" ke Pinned'),
+        ),
+      );
+    } else {
+      // Lepas dari pinned (opsional, bisa dijadikan unpin)
+      PinnedRepository.remove(name, category);
+      setState(() {
+        _isPinned = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Berhasil menghapus "$name" dari Pinned'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     const Color navy = Color(0xFF0B0C3A);
-    const Color white = Colors.white;
-    const Color lightBlue = Color(0xFFE6F0FF);
+    const Color darkBg = Color(0xFF020315);
 
-    /// Fungsi ambil deskripsi pendek
-    String getShortDesc(String text) {
-      List<String> sentences = text.split('.');
-      if (sentences.length > 1) {
-        return sentences.first.trim() + '.';
-      } else {
-        return text;
-      }
-    }
+    final String name = widget.component['name'] ?? 'Tanpa nama';
+    final String desc = widget.component['desc'] ?? '';
+    final String imageUrl = widget.component['image'] ?? '';
+    final double? price = (widget.component['price'] is num)
+        ? (widget.component['price'] as num).toDouble()
+        : null;
+
+    final String category = widget.component['category'] ?? '';
+    final List<String> tags = (widget.component['tags'] is List)
+        ? (widget.component['tags'] as List)
+            .map((e) => e.toString())
+            .toList()
+        : <String>[];
 
     return Scaffold(
-      backgroundColor: navy,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ================= HEADER =================
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    "Component Detail",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: white,
-                    ),
-                  ),
+      backgroundColor: darkBg,
+      appBar: AppBar(
+        backgroundColor: navy,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        title: Text(
+          name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
+      body: Column(
+        children: [
+          // Bagian atas: gambar + info singkat
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xFF0B0C3A),
+                  Color(0xFF000814),
                 ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
-
-            // ================= BODY =================
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  color: white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            child: Row(
+              children: [
+                Container(
+                  width: 90,
+                  height: 90,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.08),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: imageUrl.isNotEmpty
+                        ? Image.network(
+                            imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) =>
+                                const Icon(Icons.memory_rounded,
+                                    color: Colors.white),
+                          )
+                        : const Icon(
+                            Icons.memory_rounded,
+                            color: Colors.white,
+                            size: 36,
+                          ),
                   ),
                 ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 24,
-                  ),
+                const SizedBox(width: 16),
+                Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Gambar Komponen
-                      Container(
-                        height: 200,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                            image: AssetImage(widget.imageUrl),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-
-                      // Nama Komponen
                       Text(
-                        widget.name,
+                        name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
-                          fontSize: 22,
+                          color: Colors.white,
+                          fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: navy,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-
-                      const SizedBox(height: 6),
-                      Text(
-                        widget.categoryName,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Colors.black54,
                         ),
                       ),
-
-                      const SizedBox(height: 14),
-
-                      // Deskripsi Komponen + Read More
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: lightBlue,
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AnimatedCrossFade(
-                              duration: const Duration(milliseconds: 250),
-                              firstChild: Text(
-                                getShortDesc(widget.description),
-                                textAlign: TextAlign.justify,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black87,
-                                  height: 1.6,
-                                ),
-                              ),
-                              secondChild: Text(
-                                widget.description,
-                                textAlign: TextAlign.justify,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black87,
-                                  height: 1.6,
-                                ),
-                              ),
-                              crossFadeState: isExpanded
-                                  ? CrossFadeState.showSecond
-                                  : CrossFadeState.showFirst,
-                            ),
-                            const SizedBox(height: 8),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isExpanded = !isExpanded;
-                                });
-                              },
-                              child: Text(
-                                isExpanded ? "Read less ▲" : "Read more ▼",
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.blueAccent,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      const SizedBox(height: 20),
-
-                      // Harga Komponen
-                      Text(
-                        "Rp ${widget.price.toStringAsFixed(0)}",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Tombol Add to Pinned
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            isPinned = !isPinned;
-                          });
-
-                          // Update repository
-                          PinnedRepository.toggle(
-                            PinnedComponent(
-                              name: widget.name,
-                              description: widget.description,
-                              imageUrl: widget.imageUrl,
-                              price: widget.price,
-                              categoryName: widget.categoryName,
-                            ),
-                          );
-
-                          // aman kalau dipanggil saat masih di halaman
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                isPinned
-                                    ? "Komponen ditambahkan ke Pinned!"
-                                    : "Komponen dihapus dari Pinned.",
-                              ),
-                              duration: const Duration(seconds: 2),
-                            ),
-                          );
-                        },
-                        icon: Icon(
-                          isPinned ? Icons.push_pin : Icons.push_pin_outlined,
-                          color: white,
-                        ),
-                        label: Text(
-                          isPinned ? "Pinned" : "Add to Pinned",
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: navy,
-                          foregroundColor: white,
+                      const SizedBox(height: 8),
+                      if (category.isNotEmpty)
+                        Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 32,
-                            vertical: 14,
-                          ),
-                          shape: RoundedRectangleBorder(
+                              horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.12),
                             borderRadius: BorderRadius.circular(20),
                           ),
+                          child: Text(
+                            category,
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 11,
+                            ),
+                          ),
                         ),
-                      ),
-
-                      const SizedBox(height: 40),
+                      if (price != null) ...[
+                        const SizedBox(height: 8),
+                        Text(
+                          'Rp ${price.toStringAsFixed(0)}',
+                          style: const TextStyle(
+                            color: Color(0xFF00E0FF),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 ),
+              ],
+            ),
+          ),
+
+          // Body putih + read more + tombol pinned
+          Expanded(
+            child: Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Color(0xFFF9FAFF),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(26),
+                  topRight: Radius.circular(26),
+                ),
+              ),
+              child: ListView(
+                padding:
+                    const EdgeInsets.fromLTRB(20, 20, 20, 24),
+                children: [
+                  
+                  if (tags.isNotEmpty)
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: -4,
+                      children: tags.map((t) {
+                        return Chip(
+                          label: Text(
+                            t,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                          backgroundColor: const Color(0xFFE3E7FF),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          visualDensity: VisualDensity.compact,
+                        );
+                      }).toList(),
+                    ),
+
+                  if (tags.isNotEmpty) const SizedBox(height: 16),
+
+                  // Judul Deskripsi
+                  const Text(
+                    'Deskripsi',
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF0B0C3A),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+
+                  // TEKS DESKRIPSI + READ MORE
+                  _buildDescription(desc),
+
+                  const SizedBox(height: 20),
+
+                  // Tombol ADD TO PINNED
+                  _buildPinnedButton(),
+
+                  const SizedBox(height: 20),
+
+                  // Field tambahan (kalau ada di map)
+                  ..._buildExtraFields(),
+                ],
               ),
             ),
-          ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDescription(String desc) {
+    final bool showReadMore = desc.length > 140; 
+
+    final String textToShow;
+    if (!_isDescExpanded && showReadMore) {
+      textToShow = desc.substring(0, 140) + '...';
+    } else {
+      textToShow = desc;
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          desc.isEmpty
+              ? 'Belum ada deskripsi untuk komponen ini.'
+              : textToShow,
+          textAlign: TextAlign.justify,
+          style: const TextStyle(
+            fontSize: 13,
+            height: 1.6,
+            color: Colors.black87,
+          ),
+        ),
+        if (showReadMore)
+          Align(
+            alignment: Alignment.centerRight,
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  _isDescExpanded = !_isDescExpanded;
+                });
+              },
+              child: Text(
+                _isDescExpanded ? 'Read less' : 'Read more',
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildPinnedButton() {
+    const Color navy = Color(0xFF0B0C3A);
+
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: _togglePinned,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: _isPinned ? Colors.grey[400] : navy,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 14),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
+          elevation: 4,
+        ),
+        icon: Icon(
+          _isPinned ? Icons.push_pin : Icons.push_pin_outlined,
+        ),
+        label: Text(
+          _isPinned ? 'Pinned' : 'Add to Pinned',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
+  }
+
+  List<Widget> _buildExtraFields() {
+    const ignoreKeys = {
+      'name',
+      'desc',
+      'image',
+      'price',
+      'category',
+      'tags',
+    };
+
+    final entries = widget.component.entries
+        .where((e) => !ignoreKeys.contains(e.key))
+        .toList();
+
+    if (entries.isEmpty) return [];
+
+    List<Widget> widgets = [];
+
+    for (final e in entries) {
+      final key = e.key;
+      final value = e.value;
+      String textValue;
+
+      if (value is List) {
+        textValue = value.map((v) => v.toString()).join(', ');
+      } else {
+        textValue = value.toString();
+      }
+
+      if (textValue.trim().isEmpty) continue;
+
+      widgets.add(const SizedBox(height: 8));
+      widgets.add(
+        Text(
+          key,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF0B0C3A),
+          ),
+        ),
+      );
+      widgets.add(const SizedBox(height: 4));
+      widgets.add(
+        Text(
+          textValue,
+          style: const TextStyle(
+            fontSize: 13,
+            color: Colors.black87,
+          ),
+        ),
+      );
+      widgets.add(const SizedBox(height: 12));
+    }
+
+    return widgets;
   }
 }

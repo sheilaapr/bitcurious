@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_pages.dart'; // pastikan file ini sudah ada
+import 'home_pages.dart'; 
 
 class SplashPages extends StatelessWidget {
   const SplashPages({super.key});
@@ -19,7 +19,7 @@ class SplashPages extends StatelessWidget {
             child: Container(
               width: double.infinity,
               decoration: const BoxDecoration(
-                color: navy,
+                color: Color(0xFF0B0C3A),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(36),
                   bottomRight: Radius.circular(36),
@@ -54,7 +54,8 @@ class SplashPages extends StatelessWidget {
                   ),
                 ],
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 28, vertical: 32),
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 320),
@@ -112,7 +113,8 @@ class SplashPages extends StatelessWidget {
                             Navigator.pushReplacement(
                               context,
                               PageRouteBuilder(
-                                pageBuilder: (_, __, ___) => const HomePages(),
+                                pageBuilder: (_, __, ___) =>
+                                    const HomePage(),
                                 transitionsBuilder: (context, animation,
                                     secondaryAnimation, child) {
                                   const begin = Offset(0.0, 1.0);
@@ -133,7 +135,8 @@ class SplashPages extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: navy,
                             foregroundColor: white,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(32),
                             ),

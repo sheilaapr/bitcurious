@@ -1,0 +1,29 @@
+BitCurious Project 
+==================
+
+Project Name  : BitCurious – Elektronika & IoT Explorer
+Technology    : Flutter (Dart)
+API Source    : BitCurious JSON (Vercel) + NewsAPI
+
+Main Features:
+- Kategori komponen IoT & elektronik (API-based)
+- List & detail komponen (gambar, deskripsi, harga)
+- Artikel IoT & Elektronika (API) → klik membuka link asli
+- Project IoT bernuansa Islami (API)
+- Pinned components (local storage)
+- Notes: tambah, lihat, hapus catatan
+- Search: komponen, artikel, dan project
+- Drawer: About Us + Berita terkini (NewsAPI)
+
+Data Sources:
+- /components.json
+- /articles.json
+- /projects.json
+- /assets/images/* (gambar dari server)
+
+Local Services:
+- notes_service.dart → penyimpanan catatan
+- pinned_repository.dart → penyimpanan komponen favorit
+
+Last Updated:
+- 10 Desember 2025

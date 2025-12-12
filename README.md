@@ -26,6 +26,7 @@ Aplikasi BitCurious menggunakan **RESTful API publik** sebagai sumber data utama
 
 ### 🌐 API Tambahan
 - **NewsAPI**  
+  https://newsapi.org/
   Digunakan untuk menampilkan berita teknologi dan IoT terkini secara real-time.
 
 ---

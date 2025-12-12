@@ -21,8 +21,8 @@ Aplikasi BitCurious menggunakan **RESTful API publik** sebagai sumber data utama
 - **Project IoT Bernuansa Islami**  
   https://bitcurious-json.vercel.app/projects.json
 
-- **Gambar Komponen**  
-  https://bitcurious-json.vercel.app/assets/images/
+- **All API Public**  
+  https://bitcurious-json.vercel.app/
 
 ### 🌐 API Tambahan
 - **NewsAPI**  
